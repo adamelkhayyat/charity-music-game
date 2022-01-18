@@ -31,6 +31,7 @@ export const ExerciseComp = ({ onExerciseEnd }) => {
   ];
 
   const [soundCaught, setSoundCaught] = useState([]);
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     let checkedInterval = null;
@@ -90,19 +91,27 @@ export const ExerciseComp = ({ onExerciseEnd }) => {
       clearInterval(checkedInterval);
       onExerciseEnd();
     });
-  },);
+  });
+
+  const controlAudio = () => {
+    const yourAudio = document.getElementById('music-player');
+    setPlaying(true);
+    yourAudio.play();
+  }
 
   return (
     <div className="App">
-      <figure>
-        <figcaption>Listen for the bell 🔔</figcaption>
-        <audio
-            id="music-player"
-            controls
-            src="/media/bell-sample.mp3">
-          Your browser does not support the <code>audio</code> element.
-        </audio>
-      </figure>
+      <h3>Listen for the bell 🔔</h3>
+      <audio
+          id="music-player"
+          controls
+          src="/media/bell-sample.mp3"
+          style={{display: "none"}}>
+        Your browser does not support the <code>audio</code> element.
+      </audio>
+
+      {playing ? <i>Audio started playing...</i> : <a href="#" id="audio-control" onClick={controlAudio}>Play Audio</a>}
+
       { soundCaught.map(sc => <p>Bell number {sc.iteration}, originally played at {sc.soundAt}, was caught within {sc.time} seconds.</p>)}
     </div>
   );
