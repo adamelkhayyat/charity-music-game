@@ -106,7 +106,7 @@ export const ExerciseComp = ({ onExerciseEnd }) => {
       <audio
           id="music-player"
           controls
-          src="/media/bell-sample.mp3"
+          src="media/bell-sample.mp3"
           style={{display: "none"}}>
         Your browser does not support the <code>audio</code> element.
       </audio>

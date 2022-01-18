@@ -5,6 +5,6 @@ import { Link } from "react-router-dom";
 export const ResultComp = () => {
   return (<div>
     <h2>Results page - TODO</h2>
-    <Link to="/charity-music-game/">Back To Homepage &gt;&gt;</Link>
+    <Link to="/">Back To Homepage &gt;&gt;</Link>
     </div>)
 }
