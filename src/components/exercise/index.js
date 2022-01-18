@@ -93,7 +93,8 @@ export const ExerciseComp = ({ onExerciseEnd }) => {
     });
   });
 
-  const controlAudio = () => {
+  const controlAudio = (e) => {
+    e.preventDefault();
     const yourAudio = document.getElementById('music-player');
     setPlaying(true);
     yourAudio.play();
