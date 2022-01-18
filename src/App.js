@@ -23,10 +23,10 @@ const App = () => {
     <div className="App">
         <Routes>
             <Route index element={<LandingPageComp />} />
-            <Route path="/tutorial" element={<div>Tutorial page - TODO</div>} />
-            <Route path="/exercise" element={<ExerciseComp onExerciseEnd={navigateToResults} />} />
-            <Route path="/result" element={<ResultComp />} />
-            <Route path="/admin" element={<div>Admin page - TODO</div>} />
+            <Route path="/charity-music-game/tutorial" element={<div>Tutorial page - TODO</div>} />
+            <Route path="/charity-music-game/exercise" element={<ExerciseComp onExerciseEnd={navigateToResults} />} />
+            <Route path="/charity-music-game/result" element={<ResultComp />} />
+            <Route path="/charity-music-game/admin" element={<div>Admin page - TODO</div>} />
             <Route path="*" element={<div>404 ERROR - PAGE NOT FOUND - TODO</div>} />
         </Routes>
     </div>
