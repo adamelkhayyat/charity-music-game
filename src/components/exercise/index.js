@@ -53,7 +53,8 @@ export const ExerciseComp = ({ onExerciseEnd }) => {
           soundAt: bellInstances[currentInstanceCounter - 1].time.toFixed(2),
           iteration: currentInstanceCounter - 1
         };
-        setSoundCaught(arr => [...arr, state])
+        // remove dup hack
+        setSoundCaught(arr => [...new Set([...arr, state])])
 
         // reset timers
         startTime = null;
