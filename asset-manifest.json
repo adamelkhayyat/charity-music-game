@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/adamelkhayyat.github.io/charity-music-game/static/css/main.35f75ca8.css",
+    "main.js": "/adamelkhayyat.github.io/charity-music-game/static/js/main.b353067f.js",
+    "static/js/787.edd59a96.chunk.js": "/adamelkhayyat.github.io/charity-music-game/static/js/787.edd59a96.chunk.js",
+    "index.html": "/adamelkhayyat.github.io/charity-music-game/index.html",
+    "main.35f75ca8.css.map": "/adamelkhayyat.github.io/charity-music-game/static/css/main.35f75ca8.css.map",
+    "main.b353067f.js.map": "/adamelkhayyat.github.io/charity-music-game/static/js/main.b353067f.js.map",
+    "787.edd59a96.chunk.js.map": "/adamelkhayyat.github.io/charity-music-game/static/js/787.edd59a96.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.35f75ca8.css",
+    "static/js/main.b353067f.js"
+  ]
+}
