@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/adamelkhayyat.github.io/charity-music-game/static/css/main.35f75ca8.css",
-    "main.js": "/adamelkhayyat.github.io/charity-music-game/static/js/main.b353067f.js",
-    "static/js/787.edd59a96.chunk.js": "/adamelkhayyat.github.io/charity-music-game/static/js/787.edd59a96.chunk.js",
-    "index.html": "/adamelkhayyat.github.io/charity-music-game/index.html",
-    "main.35f75ca8.css.map": "/adamelkhayyat.github.io/charity-music-game/static/css/main.35f75ca8.css.map",
-    "main.b353067f.js.map": "/adamelkhayyat.github.io/charity-music-game/static/js/main.b353067f.js.map",
-    "787.edd59a96.chunk.js.map": "/adamelkhayyat.github.io/charity-music-game/static/js/787.edd59a96.chunk.js.map"
+    "main.css": "/charity-music-game/static/css/main.35f75ca8.css",
+    "main.js": "/charity-music-game/static/js/main.5698f60c.js",
+    "static/js/787.edd59a96.chunk.js": "/charity-music-game/static/js/787.edd59a96.chunk.js",
+    "index.html": "/charity-music-game/index.html",
+    "main.35f75ca8.css.map": "/charity-music-game/static/css/main.35f75ca8.css.map",
+    "main.5698f60c.js.map": "/charity-music-game/static/js/main.5698f60c.js.map",
+    "787.edd59a96.chunk.js.map": "/charity-music-game/static/js/787.edd59a96.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.35f75ca8.css",
-    "static/js/main.b353067f.js"
+    "static/js/main.5698f60c.js"
   ]
 }
