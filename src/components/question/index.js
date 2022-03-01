@@ -2,7 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 // import './Question.css';
 
-export const QuestionComp = ({ mp3Url1, mp3Url2, correctAnswer, onDone }) => {
+export const QuestionComp = ({config}) => {
+  const { mp3Url1, mp3Url2, correctAnswer, onDone } = config;
   let startTime = 0;
   let reactionTime = 0;
   let givenAnswer = "";
@@ -13,6 +14,7 @@ export const QuestionComp = ({ mp3Url1, mp3Url2, correctAnswer, onDone }) => {
   const endTimer = () => {
     reactionTime = (new Date().getTime() - startTime) / 1000;
     console.log("concluded with:", givenAnswer, reactionTime);
+    onDone(reactionTime, correctAnswer === givenAnswer);
   };
 
   const controlAudio = (e, num) => {
@@ -28,14 +30,13 @@ export const QuestionComp = ({ mp3Url1, mp3Url2, correctAnswer, onDone }) => {
   return (
     <>
       {/* Question */}
-      <h1>Question 1</h1>
       <p>Are these two notes the <b>same</b> or <b>different</b>?</p>
 
       {/* Sound samples */}
       <audio
           id="music-player-1"
           controls
-          src="https://soundbible.com/mp3/Cow_Moo-Mike_Koenig-42670858.mp3"
+          src={mp3Url1}
           style={{display: "none"}}>
         Your browser does not support the <code>audio</code> element.
       </audio>
@@ -45,7 +46,7 @@ export const QuestionComp = ({ mp3Url1, mp3Url2, correctAnswer, onDone }) => {
           id="music-player-2"
           controls
           onEnded={startTimer}
-          src="https://soundbible.com/mp3/Cow_Moo-Mike_Koenig-42670858.mp3"
+          src={mp3Url2}
           style={{display: "none"}}>
         Your browser does not support the <code>audio</code> element.
       </audio>
@@ -56,9 +57,6 @@ export const QuestionComp = ({ mp3Url1, mp3Url2, correctAnswer, onDone }) => {
         <button onClick={() => registerAnswer("same")}>Same</button>
         <button onClick={() => registerAnswer("different")}>Different</button>
       </div>
-
-      {/* Next question */}
-      <a href="#" onClick={(_) => console.log("next page")}>Next</a>
     </>
   )
 }
