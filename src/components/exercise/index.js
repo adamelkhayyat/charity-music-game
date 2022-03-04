@@ -1,54 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 // import './Exercise.css';
 
-const CelebrationComp = ({reactionTime}) => {
-  return (
-    <h1 id="celebration">👏👏👏</h1>
-  )
-}
 
-export const ExerciseComp = ({ onExerciseEnd }) => {
-
+export const ExerciseComp = ({ config }) => {
+  const { onExerciseEnd, bellInstances, audioSrc, keyNote } = config
   let currentInstanceCounter = 0;
 
-  // time is in seconds, so 00:24 => 24, 01:30 => 90
-  const bellInstances = [
-    {
-      time: 1,
-    },
-    {
-      time: 5
-    },
-    {
-      time: 68
-    },
-    {
-      time: 118
-    },
-    {
-      time: 119
-    },
-    {
-      time: 127
-    },
-    {
-      time: 157
-    },
-  ];
-
   const [soundCaught, setSoundCaught] = useState([]);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [showCelebration, setShowCelebration] = useState(false);
 
   useEffect(() => {
     let checkedInterval = null;
     let startTime = null;
     let endTime = null;
-    const musicPlayer = document.getElementById('music-player');
+    const musicPlayer = document.getElementById(`music-player`);
 
     // set up listener for space key
     document.addEventListener('keydown', event => {
       if (event.code === 'Space' && startTime !== null) {
+        console.log(currentInstanceCounter);
         endTime = new Date().getTime();
         const responseTime = (endTime - startTime) / 1000;
         const state = {
@@ -57,11 +26,7 @@ export const ExerciseComp = ({ onExerciseEnd }) => {
           iteration: currentInstanceCounter
         };
 
-        if (responseTime <= 1) {
-          celebrate();
-        }
-
-        // remove dup hack
+        // remove dup
         setSoundCaught(arr => [...new Set([...arr, state])])
 
         // reset timers
@@ -72,7 +37,6 @@ export const ExerciseComp = ({ onExerciseEnd }) => {
 
     musicPlayer.addEventListener('play', (e) => {
       e.preventDefault();
-      setIsPlaying(true);
 
       // start measuring...
       checkedInterval = setInterval(function () {
@@ -99,32 +63,22 @@ export const ExerciseComp = ({ onExerciseEnd }) => {
 
   const controlAudio = (e) => {
     e.preventDefault();
-    const yourAudio = document.getElementById('music-player');
+    const yourAudio = document.getElementById(`music-player`);
     yourAudio.play();
-  }
-
-  const celebrate = () => {
-    setShowCelebration(true);
-    setInterval(function () {
-      setShowCelebration(false);
-    }, 1500);
   }
 
   return (
     <div className="App">
-      <h3>Listen for the bell 🔔</h3>
+      <h3>Listen for the <i><u>{keyNote}</u></i></h3>
       <audio
-          id="music-player"
+          id={`music-player`}
           controls
-          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-          // src="media/bell-sample.mp3"
+          src={audioSrc}
           style={{display: "none"}}>
         Your browser does not support the <code>audio</code> element.
       </audio>
 
-      {isPlaying ? <i>Audio started playing...</i> : <a href="#" id="audio-control" onClick={controlAudio}>Play Audio</a>}
-
-      { showCelebration ? <CelebrationComp /> : null }
+      <button id="audio-control" onClick={controlAudio}>Play Audio</button>
 
       {/* { soundCaught.map(sc => <p key={sc.iteration}>Bell number {sc.iteration}, originally played at {sc.soundAt}, was caught within {sc.time} seconds.</p>)} */}
     </div>

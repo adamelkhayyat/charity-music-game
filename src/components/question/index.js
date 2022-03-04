@@ -54,8 +54,8 @@ export const QuestionComp = ({config}) => {
 
       {/* Answer options */}
       <div>
-        <button onClick={() => registerAnswer("same")}>Same</button>
-        <button onClick={() => registerAnswer("different")}>Different</button>
+        <button disabled={givenAnswer ? true : false} onClick={() => registerAnswer("same")}>Same</button>
+        <button disabled={givenAnswer ? true : false} onClick={() => registerAnswer("different")}>Different</button>
       </div>
     </>
   )

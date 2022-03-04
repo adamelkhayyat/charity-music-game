@@ -32,7 +32,7 @@ const App = () => {
             <Route path="/tutorial" element={<div>Tutorial page - TODO</div>} />
             {/* <Route path="/exercise" element={<ExerciseComp onExerciseEnd={navigateToResults} />} /> */}
             {/* <Route path="/exercise" element={<QuestionComp />} /> */}
-            <Route path="/exam" element={<ExamComp />} />
+            <Route path="/exam" element={<ExamComp onDone={navigateToResults}/>} />
             <Route path="/result" element={<ResultComp results={results} />} />
             <Route path="/admin" element={<div>Admin page - TODO</div>} />
             <Route path="*" element={<div>404 ERROR - PAGE NOT FOUND - TODO</div>} />
