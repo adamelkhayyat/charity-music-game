@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 
 export const ExerciseComp = ({ config }) => {
   const { onExerciseEnd, bellInstances, audioSrc, keyNote } = config
-  let currentInstanceCounter = 0;
-
+  
   const [soundCaught, setSoundCaught] = useState([]);
-
+  
   useEffect(() => {
+    let currentInstanceCounter = 0;
     let checkedInterval = null;
     let startTime = null;
     let endTime = null;
@@ -17,7 +17,6 @@ export const ExerciseComp = ({ config }) => {
     // set up listener for space key
     document.addEventListener('keydown', event => {
       if (event.code === 'Space' && startTime !== null) {
-        console.log(currentInstanceCounter);
         endTime = new Date().getTime();
         const responseTime = (endTime - startTime) / 1000;
         const state = {
@@ -41,12 +40,12 @@ export const ExerciseComp = ({ config }) => {
       // start measuring...
       checkedInterval = setInterval(function () {
           // check if we're reaching a point in the music where a special sound is played
-          if (bellInstances[currentInstanceCounter].time.toFixed(2) === musicPlayer.currentTime.toFixed(2)) {
+          if (bellInstances[currentInstanceCounter] && bellInstances[currentInstanceCounter].time.toFixed(2) === musicPlayer.currentTime.toFixed(2)) {
             // start timer to calculate response time
             startTime = new Date().getTime();
 
             // move on to next (possible) special sound to look out for
-            if (currentInstanceCounter < (bellInstances.length - 1)) currentInstanceCounter++;
+            if (currentInstanceCounter < bellInstances.length) currentInstanceCounter++;
           }
       }, 5);
     });
@@ -59,7 +58,7 @@ export const ExerciseComp = ({ config }) => {
       clearInterval(checkedInterval);
       onExerciseEnd(soundCaught);
     });
-  });
+  }, [bellInstances, config, onExerciseEnd, soundCaught]);
 
   const controlAudio = (e) => {
     e.preventDefault();
@@ -68,7 +67,7 @@ export const ExerciseComp = ({ config }) => {
   }
 
   return (
-    <div className="App">
+    <div>
       <h3>Listen for the <i><u>{keyNote}</u></i></h3>
       <audio
           id={`music-player`}
@@ -80,7 +79,7 @@ export const ExerciseComp = ({ config }) => {
 
       <button id="audio-control" onClick={controlAudio}>Play Audio</button>
 
-      {/* { soundCaught.map(sc => <p key={sc.iteration}>Bell number {sc.iteration}, originally played at {sc.soundAt}, was caught within {sc.time} seconds.</p>)} */}
+      { soundCaught.map(sc => <p key={sc.iteration}>Bell number {sc.iteration}, originally played at {sc.soundAt}, was caught within {sc.time} seconds.</p>)}
     </div>
   );
 }

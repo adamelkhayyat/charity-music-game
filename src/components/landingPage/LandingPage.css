@@ -1,0 +1,33 @@
+.landing-page {
+  width: 100%;
+}
+
+.landing-page__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-page__hint {
+  padding-bottom: 16px;
+}
+
+.landing-page__sound-example {
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-page__start-button {
+  width: fit-content;
+  color: #fff;
+  background-color: #1abc9c;
+  padding: 13px 20px;
+  font-size: 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: transparent;
+  margin-left: auto;
+}
+
+.landing-page__start-button:hover {
+  opacity: 0.85;
+}

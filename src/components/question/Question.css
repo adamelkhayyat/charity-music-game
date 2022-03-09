@@ -1,0 +1,14 @@
+#audio-control {
+  width: fit-content;
+  color: #fff;
+  background-color: #3498db;
+  padding: 10px;
+  border-radius: 6px;
+  border: transparent;
+  margin: 10px 10px 10px 0;
+  cursor: pointer;
+}
+
+#audio-control:hover {
+  opacity: 0.85;
+}

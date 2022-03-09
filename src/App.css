@@ -1,65 +1,51 @@
 .App {
-  text-align: center;
   display: flex;
-  justify-content: center;
+  padding: 1rem;
+  text-align: left;
   flex-direction: column;
   align-items: center;
   height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+hr{
+  height: 1px;
+  background-color: black;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.button-audio-control {
+  width: fit-content;
+  color: #fff;
+  background-color: #3498db;
+  padding: 13px 20px;
+  font-size: 22px;
+  line-height: 1.227;
+  border-radius: 6px;
+  cursor: pointer;
+  border: transparent;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.button-audio-control:hover {
+  opacity: 0.85;
 }
 
-.App-link {
-  color: #61dafb;
+.button-exam-control {
+  width: fit-content;
+  color: #fff;
+  background-color: #1abc9c;
+  padding: 13px 20px;
+  font-size: 22px;
+  line-height: 1.227;
+  border-radius: 6px;
+  cursor: pointer;
+  border: transparent;
+  margin: 10px 10px 10px 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.button-exam-control:hover {
+  opacity: 0.85;
 }
 
 th, td {
   border: 1px solid black;
   padding: 5px;
-}
-
-#celebration {
-  bottom: 0;
-  font-size: 100px;
-  position: absolute;
-  animation: shake 1.5s;
-  animation-iteration-count: infinite;
-}
-
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  20% { transform: translate(-1px, -2px) rotate(-1deg); }
-  40% { transform: translate(-3px, 0px) rotate(1deg); }
-  60% { transform: translate(1px, -1px) rotate(1deg); }
-  80% { transform: translate(-3px, 1px) rotate(0deg); }
-  100% { transform: translate(3px, 1px) rotate(-1deg); }
 }

@@ -1,31 +1,37 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Stage } from "../exam"
 
 export const ResultComp = ({results}) => {
   const [avgReactionTime, setAvgReactionTime] = useState(0);
   const [questionResults, setQuestionResults] = useState([]);
   const [listeningResults, setListeningResults] = useState([]);
+  const [listeningTimes, setListeningTimes] = useState([]);
 
   useEffect(() => {
+    console.log(listeningTimes);
     results.forEach(result => {
       const { exerciseType } = result;
 
-      if (exerciseType === "question") {
-        setQuestionResults(arr => [...arr, result]);
-      } else if (exerciseType === "listening") {
+      if (exerciseType === Stage.STAGE_A1) {
+        setQuestionResults(arr => ([...arr, result]));
+      } else if (exerciseType === Stage.STAGE_A2) {
         setListeningResults(arr => [...arr, result]);
+        const times = result.soundCaught.map(sc => sc.time);
+        setListeningTimes(arr => [...arr, ...times]);
       }
     })
   }, [])
 
   return (<div>
     <h1>Results Page</h1>
-    <h3>Question Results</h3>
+    <h3>Stage A1 Results</h3>
+    <hr></hr>
     <table style={{margin: "10px"}}>
       <tbody>
       <tr>
           <th>Exercise Num</th>
-          <th>Exercise Type</th>
+          <th>Stage</th>
           <th>Correct</th>
           <th>Reaction time</th>
         </tr>
@@ -33,7 +39,7 @@ export const ResultComp = ({results}) => {
           <tr>
             <td>{result.exerciseNum}</td>
             <td>{result.exerciseType}</td>
-            <td style={{ "background-color": result.answerCorrect ? "green" : "red" }}>{result.answerCorrect ? "✓" : "X"}</td>
+            <td style={{ "backgroundColor": result.answerCorrect ? "green" : "red", }}>{result.answerCorrect ? "✓" : "X"}</td>
             <td>{result.reactionTime.toFixed(3)} sec</td>
           </tr>
         )}
@@ -49,19 +55,29 @@ export const ResultComp = ({results}) => {
       </tbody>
     </table>
 
-    <h3>Listening Results</h3>
+    <h3>Stage A2 Results</h3>
+    <hr></hr>
     <table style={{margin: "10px"}}>
       <tbody>
       <tr>
-          <th>Exercise Num</th>
-          <th>Exercise Type</th>
-          <th>Reaction time</th>
-        </tr>
-        {listeningResults.map(result =>
-          <tr>
-            <td>{result.exerciseNum}</td>
-            <td>{result.exerciseType}</td>
+        <th>Exercise Num</th>
+        <th>Stage</th>
+        <th>Sound iteration</th>
+        <th>Sound at (sec)</th>
+        <th>Reaction time</th>
+      </tr>
+      {listeningResults.map(result =>
+        <>
+        {result.soundCaught.map((sr, i) => <>
+          <tr key={i}>
+              <td>{result.exerciseNum}.{i+1}</td>
+              <td>{result.exerciseType}</td>
+              <td>{sr.iteration}</td>
+              <td>{sr.soundAt}</td>
+              <td>{sr.time}</td>
           </tr>
+        </>)}
+        </>
         )}
       </tbody>
     </table>
@@ -70,7 +86,7 @@ export const ResultComp = ({results}) => {
       <tbody>
         <tr>
           <th>Average Reaction Time</th>
-          {/* <td>{(listeningResults.map(r => r.reactionTime).reduce((a, b) => a + b, 0) / questionResults.length).toFixed(3)} secs</td> */}
+          <td>{(listeningTimes.reduce((a, b) => a + b, 0) / questionResults.length).toFixed(3)} secs</td>
         </tr>
       </tbody>
     </table>

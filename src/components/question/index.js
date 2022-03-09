@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useRef, useState } from "react";
-// import './Question.css';
+import './Question.css';
 
 export const QuestionComp = ({config}) => {
   const { mp3Url1, mp3Url2, correctAnswer, onDone } = config;
@@ -40,7 +40,7 @@ export const QuestionComp = ({config}) => {
           style={{display: "none"}}>
         Your browser does not support the <code>audio</code> element.
       </audio>
-      <a href="#" id="audio-control" onClick={(e) => controlAudio(e, 1)}>Play Audio 1</a>
+      <button id="audio-control" onClick={(e) => controlAudio(e, 1)}>Play Audio 1 ▶</button>
 
       <audio
           id="music-player-2"
@@ -50,12 +50,12 @@ export const QuestionComp = ({config}) => {
           style={{display: "none"}}>
         Your browser does not support the <code>audio</code> element.
       </audio>
-      <a href="#" id="audio-control" onClick={(e) => controlAudio(e, 2)}>Play Audio 2</a>
+      <button id="audio-control" onClick={(e) => controlAudio(e, 2)}>Play Audio 2 ▶</button>
 
       {/* Answer options */}
       <div>
-        <button disabled={givenAnswer ? true : false} onClick={() => registerAnswer("same")}>Same</button>
-        <button disabled={givenAnswer ? true : false} onClick={() => registerAnswer("different")}>Different</button>
+        <button className="button-exam-control" disabled={givenAnswer ? true : false} onClick={() => registerAnswer("same")}>Same</button>
+        <button className="button-exam-control" disabled={givenAnswer ? true : false} onClick={() => registerAnswer("different")}>Different</button>
       </div>
     </>
   )

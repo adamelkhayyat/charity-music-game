@@ -1,0 +1,45 @@
+.exam {
+  width: 100%;
+}
+
+.exam-intro {
+  display: flex;
+  flex-direction: column;
+}
+
+.exam-intro__hint {
+  color: gray;
+  padding-bottom: 16px;
+}
+
+.exam-intro__start-button {
+  width: fit-content;
+  color: #fff;
+  background-color: #1abc9c;
+  padding: 13px 20px;
+  font-size: 22px;
+  line-height: 1.227;
+  border-radius: 6px;
+  cursor: pointer;
+  border: transparent;
+  margin-left: auto;
+}
+
+.exam-intro__hr {
+  height: 0.5px;
+  color: lightgray;
+  margin-top: 0;
+}
+
+.exam-intro__example-label {
+  padding-right: 45px;
+}
+
+.exam-intro__example-label-explanation {
+  padding-left: 45px;
+}
+
+#exam-title {
+  font-size: 2.5rem;
+  margin-bottom: 0;
+}
