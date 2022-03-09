@@ -21,7 +21,7 @@ export const ResultComp = ({results}) => {
         setListeningTimes(arr => [...arr, ...times]);
       }
     })
-  }, [])
+  }, [results])
 
   return (<div>
     <h1>Results Page</h1>
