@@ -1,29 +1,27 @@
-import { useEffect } from "react";
-// import './Exercise.css';
-
+import { useEffect, useState } from "react";
+// import './Listening.css';
 
 export const ListeningComp = ({ config }) => {
   const { onExerciseEnd, bellInstances, audioSrc, keyNote } = config;
   let soundCaught;
 
+
   useEffect(() => {
-    soundCaught = [];
     const musicPlayer = document.getElementById(`music-player`);
+    soundCaught = [];
 
     // set up listener for space key
     const keydownSpace = (e) => {
-      console.log(soundCaught);
       if (e.code === 'Space') {
         const currentPlayerTime = musicPlayer.currentTime;
         const soundHit = getSoundHit(currentPlayerTime);
-        console.log(soundHit);
 
         if (soundHit) {
           soundCaught = soundCaught.concat(soundHit);
         }
       }
     };
-    document.addEventListener('keydown', (e) => keydownSpace(e));
+    document.addEventListener('keydown', keydownSpace);
 
     // Ended listener
     const endedListener = () => {
@@ -32,10 +30,10 @@ export const ListeningComp = ({ config }) => {
     musicPlayer.addEventListener('ended', () => endedListener());
 
     return () => {
-      musicPlayer.removeEventListener('ended', () => endedListener());
-      document.removeEventListener('keydown', (e) => keydownSpace(e));
-    }  
-  }, [config]);
+      musicPlayer.removeEventListener('ended', endedListener);
+      window.removeEventListener("keydown", keydownSpace);
+    }
+  }, []);
 
   const isBellCaught = (bellIteration) => soundCaught.some(sc => sc.iteration === bellIteration);
 
@@ -81,7 +79,7 @@ export const ListeningComp = ({ config }) => {
           id={`music-player`}
           controls
           src={audioSrc}
-          style={{display: "none"}}
+          // style={{display: "none"}}
           >
         Your browser does not support the <code>audio</code> element.
       </audio>

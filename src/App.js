@@ -6,8 +6,6 @@ import {
 import { useState } from "react";
 
 // Comps
-import { ListeningComp } from "./components/exercise";
-import { QuestionComp } from "./components/question";
 import { LandingPageComp } from "./components/landingPage";
 import { ResultComp } from "./components/result";
 import { ExamComp } from "./components/exam";
@@ -19,7 +17,6 @@ const App = () => {
   const [results, setResults] = useState([]);
   const navigate = useNavigate();
 
-  
   const navigateToResults = (results) => {
     setResults(results);
     navigate('/result');
@@ -29,7 +26,6 @@ const App = () => {
     <div className="App">
         <Routes>
             <Route path="/" exact element={<LandingPageComp />} />
-            <Route path="/tutorial" element={<div>Tutorial page - TODO</div>} />
             <Route path="/exam" element={<ExamComp onDone={navigateToResults}/>} />
             <Route path="/result" element={<ResultComp results={results} />} />
             <Route path="/admin" element={<div>Admin page - TODO</div>} />

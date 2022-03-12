@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ListeningComp } from "../exercise"
+import { ListeningComp } from "../listening"
 import { QuestionComp } from "../question";
 
 import './Exam.css';
