@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 // import './Exercise.css';
 
 
-export const ExerciseComp = ({ config }) => {
+export const ListeningComp = ({ config }) => {
   const { onExerciseEnd, bellInstances, audioSrc, keyNote } = config
   
   const [soundCaught, setSoundCaught] = useState([]);

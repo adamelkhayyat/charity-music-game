@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ExerciseComp } from "../exercise"
+import { ListeningComp } from "../exercise"
 import { QuestionComp } from "../question";
 
 import './Exam.css';
@@ -119,7 +119,7 @@ export const ExamComp = ({ onDone }) => {
   const getListeningConfig = () => {
     const l1Config = {
       keyNote: "Rain",
-      audioSrc: "https://soundbible.com/mp3/alien-spaceship_daniel_simion.mp3",
+      audioSrc: "https://soundbible.com/mp3/Short%20Beep%20Tone-SoundBible.com-1937840853.mp3",
       bellInstances: [
       {
         time: 5,
@@ -190,7 +190,7 @@ export const ExamComp = ({ onDone }) => {
       </div> ) : (
       <div>
         <h2>{currentQuestionType}: {currentExercise}</h2>
-        { currentQuestionType === Stage.STAGE_A1 ?  <QuestionComp config={questions[currentQ]} /> : <ExerciseComp config={listening[currentL]} /> }
+        { currentQuestionType === Stage.STAGE_A1 ?  <QuestionComp config={questions[currentQ]} /> : <ListeningComp config={listening[currentL]} /> }
       </div>
       )
     }

@@ -6,7 +6,7 @@ import {
 import { useState } from "react";
 
 // Comps
-import { ExerciseComp } from "./components/exercise";
+import { ListeningComp } from "./components/exercise";
 import { QuestionComp } from "./components/question";
 import { LandingPageComp } from "./components/landingPage";
 import { ResultComp } from "./components/result";
