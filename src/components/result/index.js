@@ -3,25 +3,27 @@ import { Link } from "react-router-dom";
 import { Stage } from "../exam"
 
 export const ResultComp = ({results}) => {
-  const [avgReactionTime, setAvgReactionTime] = useState(0);
   const [questionResults, setQuestionResults] = useState([]);
   const [listeningResults, setListeningResults] = useState([]);
   const [listeningTimes, setListeningTimes] = useState([]);
 
   useEffect(() => {
-    console.log(listeningTimes);
     results.forEach(result => {
       const { exerciseType } = result;
 
       if (exerciseType === Stage.STAGE_A1) {
-        setQuestionResults(arr => ([...arr, result]));
+        if (!questionResults.includes(result)) {
+          setQuestionResults(arr => ([...arr, result]));
+        }
       } else if (exerciseType === Stage.STAGE_A2) {
-        setListeningResults(arr => [...arr, result]);
+        if (!listeningResults.includes(result)) {
+          setListeningResults(arr => [...arr, result]);
+        }
         const times = result.soundCaught.map(sc => sc.time);
         setListeningTimes(arr => [...arr, ...times]);
       }
     })
-  }, [results])
+  }, [])
 
   return (<div>
     <h1>Results Page</h1>
@@ -35,8 +37,8 @@ export const ResultComp = ({results}) => {
           <th>Correct</th>
           <th>Reaction time</th>
         </tr>
-        {questionResults.map(result =>
-          <tr>
+        {questionResults.map((result, i) =>
+          <tr key={i} >
             <td>{result.exerciseNum}</td>
             <td>{result.exerciseType}</td>
             <td style={{ "backgroundColor": result.answerCorrect ? "green" : "red", }}>{result.answerCorrect ? "✓" : "X"}</td>
