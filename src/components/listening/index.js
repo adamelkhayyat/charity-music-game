@@ -1,43 +1,51 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 // import './Listening.css';
 
 export const ListeningComp = ({ config }) => {
-  const { onExerciseEnd, bellInstances, audioSrc, keyNote } = config;
-  let soundCaught;
+  const configuration = useRef(config);
+  const soundCaught = useRef([]);
 
+  // set up listener for space key
+  const keydownSpace = (e) => {
+    const musicPlayer = document.getElementById(`music-player`);
+
+    if (e.code === 'Space') {
+      const soundHit = getSoundHit(musicPlayer.currentTime);
+
+      if (soundHit) {
+        soundCaught.current = [...soundCaught.current, soundHit];
+      }
+    }
+  };
+
+  // Ended listener
+  const endedListener = () => {
+    configuration.current.onExerciseEnd(soundCaught.current);
+  }
 
   useEffect(() => {
+    configuration.current = config;
+    soundCaught.current = [];
     const musicPlayer = document.getElementById(`music-player`);
-    soundCaught = [];
-
-    // set up listener for space key
-    const keydownSpace = (e) => {
-      if (e.code === 'Space') {
-        const currentPlayerTime = musicPlayer.currentTime;
-        const soundHit = getSoundHit(currentPlayerTime);
-
-        if (soundHit) {
-          soundCaught = soundCaught.concat(soundHit);
-        }
-      }
-    };
     document.addEventListener('keydown', keydownSpace);
-
-    // Ended listener
-    const endedListener = () => {
-      onExerciseEnd(soundCaught);
-    }
     musicPlayer.addEventListener('ended', () => endedListener());
 
     return () => {
-      musicPlayer.removeEventListener('ended', endedListener);
       window.removeEventListener("keydown", keydownSpace);
+      musicPlayer.removeEventListener('ended', endedListener);
     }
   }, []);
 
-  const isBellCaught = (bellIteration) => soundCaught.some(sc => sc.iteration === bellIteration);
+  useEffect(() => {
+    configuration.current = config;
+    soundCaught.current = [];
+  }, [config]);
+
+
+  const isBellCaught = (bellIteration) => soundCaught.current.some(sc => sc.iteration === bellIteration);
 
   const getSoundHit = (actionTime) => {
+    const { bellInstances } = configuration.current;
     let soundHit = null;
 
     bellInstances.forEach((bell, i) => {
@@ -74,11 +82,11 @@ export const ListeningComp = ({ config }) => {
 
   return (
     <div>
-      <h3>Listen for the <i><u>{keyNote}</u></i></h3>
+      <h3>Listen for the <i><u>{configuration.current.keyNote}</u></i></h3>
       <audio
           id={`music-player`}
           controls
-          src={audioSrc}
+          src={configuration.current.audioSrc}
           // style={{display: "none"}}
           >
         Your browser does not support the <code>audio</code> element.

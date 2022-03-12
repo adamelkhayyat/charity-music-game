@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useEffect, useRef, useState } from "react";
 import './Question.css';
 
 export const QuestionComp = ({config}) => {
@@ -13,7 +12,6 @@ export const QuestionComp = ({config}) => {
   };
   const endTimer = () => {
     reactionTime = (new Date().getTime() - startTime) / 1000;
-    console.log("concluded with:", givenAnswer, reactionTime);
     onDone(reactionTime, correctAnswer === givenAnswer);
   };
 
