@@ -18,9 +18,9 @@ export const ResultComp = ({results}) => {
       } else if (exerciseType === Stage.STAGE_A2) {
         if (!listeningResults.includes(result)) {
           setListeningResults(arr => [...arr, result]);
+          const times = result.soundCaught.map(sc => sc.time);
+          setListeningTimes(arr => [...arr, ...times]);
         }
-        const times = result.soundCaught.map(sc => sc.time);
-        setListeningTimes(arr => [...arr, ...times]);
       }
     })
   }, [])
@@ -42,7 +42,7 @@ export const ResultComp = ({results}) => {
             <td>{result.exerciseNum}</td>
             <td>{result.exerciseType}</td>
             <td style={{ "backgroundColor": result.answerCorrect ? "green" : "red", }}>{result.answerCorrect ? "✓" : "X"}</td>
-            <td>{result.reactionTime.toFixed(3)} sec</td>
+            <td>{result.reactionTime.toFixed(2)} sec</td>
           </tr>
         )}
       </tbody>
@@ -52,7 +52,7 @@ export const ResultComp = ({results}) => {
       <tbody>
         <tr>
           <th>Average Reaction Time</th>
-          <td>{(questionResults.map(r => r.reactionTime).reduce((a, b) => a + b, 0) / questionResults.length).toFixed(3)} secs</td>
+          <td>{(questionResults.map(r => r.reactionTime).reduce((a, b) => a + b, 0) / questionResults.length).toFixed(2)} secs</td>
         </tr>
       </tbody>
     </table>
@@ -72,11 +72,11 @@ export const ResultComp = ({results}) => {
         <>
         {result.soundCaught.map((sr, i) => <>
           <tr key={i}>
-              <td>{result.exerciseNum}.{i+1}</td>
+              <td>{result.exerciseNum}.{i + 1}</td>
               <td>{result.exerciseType}</td>
-              <td>{sr.iteration}</td>
+              <td>{sr.iteration + 1}</td>
               <td>{sr.soundAt}</td>
-              <td>{sr.time}</td>
+              <td>{sr.time.toFixed(2)} sec</td>
           </tr>
         </>)}
         </>
@@ -88,7 +88,7 @@ export const ResultComp = ({results}) => {
       <tbody>
         <tr>
           <th>Average Reaction Time</th>
-          <td>{(listeningTimes.reduce((a, b) => a + b, 0) / questionResults.length).toFixed(3)} secs</td>
+          <td>{(listeningTimes.reduce((a, b) => a + b, 0) / questionResults.length).toFixed(2)} secs</td>
         </tr>
       </tbody>
     </table>
