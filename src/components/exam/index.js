@@ -119,16 +119,19 @@ export const ExamComp = ({ onDone }) => {
   const getListeningConfig = () => {
     const l1Config = {
       keyNote: "Rain",
-      audioSrc: "https://soundbible.com/mp3/Short%20Beep%20Tone-SoundBible.com-1937840853.mp3",
+      audioSrc: "https://soundbible.com/mp3/alien-spaceship_daniel_simion.mp3",
       bellInstances: [
-      {
-        time: 5,
-      },
-      {
-        time: 10,
-      },
-    ],
-    onExerciseEnd: (soundCaught) => addResults({soundCaught}),
+        {
+          time: 2,
+        },
+        {
+          time: 5,
+        },
+        {
+          time: 10,
+        },
+      ],
+      onExerciseEnd: (soundCaught) => addResults({soundCaught}),
   };
 
     const l2Config = {
@@ -146,7 +149,7 @@ export const ExamComp = ({ onDone }) => {
   };
 
 
-    return [l1Config];
+    return [l1Config, l2Config];
   }
 
   const questions = getQuestionsConfig();

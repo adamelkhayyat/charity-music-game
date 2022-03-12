@@ -1,64 +1,72 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 // import './Exercise.css';
 
 
 export const ListeningComp = ({ config }) => {
-  const { onExerciseEnd, bellInstances, audioSrc, keyNote } = config
-  
-  const [soundCaught, setSoundCaught] = useState([]);
-  
+  const { onExerciseEnd, bellInstances, audioSrc, keyNote } = config;
+  let soundCaught;
+
   useEffect(() => {
-    let currentInstanceCounter = 0;
-    let checkedInterval = null;
-    let startTime = null;
-    let endTime = null;
+    soundCaught = [];
     const musicPlayer = document.getElementById(`music-player`);
 
     // set up listener for space key
-    document.addEventListener('keydown', event => {
-      if (event.code === 'Space' && startTime !== null) {
-        endTime = new Date().getTime();
-        const responseTime = (endTime - startTime) / 1000;
-        const state = {
-          time: responseTime,
-          soundAt: bellInstances[currentInstanceCounter - 1].time.toFixed(2),
-          iteration: currentInstanceCounter
-        };
+    const keydownSpace = (e) => {
+      console.log(soundCaught);
+      if (e.code === 'Space') {
+        const currentPlayerTime = musicPlayer.currentTime;
+        const soundHit = getSoundHit(currentPlayerTime);
+        console.log(soundHit);
 
-        // remove dup
-        setSoundCaught(arr => [...new Set([...arr, state])])
+        if (soundHit) {
+          soundCaught = soundCaught.concat(soundHit);
+        }
+      }
+    };
+    document.addEventListener('keydown', (e) => keydownSpace(e));
 
-        // reset timers
-        startTime = null;
-        endTime = null;
+    // Ended listener
+    const endedListener = () => {
+      onExerciseEnd(soundCaught);
+    }
+    musicPlayer.addEventListener('ended', () => endedListener());
+
+    return () => {
+      musicPlayer.removeEventListener('ended', () => endedListener());
+      document.removeEventListener('keydown', (e) => keydownSpace(e));
+    }  
+  }, [config]);
+
+  const isBellCaught = (bellIteration) => soundCaught.some(sc => sc.iteration === bellIteration);
+
+  const getSoundHit = (actionTime) => {
+    let soundHit = null;
+
+    bellInstances.forEach((bell, i) => {
+      const { time } = bell;
+
+      if (actionTime >= time) {
+        const nextBell = bellInstances[i + 1];
+
+        if (nextBell && actionTime < nextBell.time && !isBellCaught(i)) {
+          soundHit = {
+            iteration: i,
+            soundAt: time,
+            time: actionTime - time
+          }
+        } else if (nextBell && actionTime >= nextBell.time && !isBellCaught(i + 1)){
+          soundHit = {
+            iteration: i + 1,
+            soundAt: nextBell.time,
+            time: actionTime - nextBell.time
+          }
+        }
       }
     })
 
-    musicPlayer.addEventListener('play', (e) => {
-      e.preventDefault();
+    return soundHit;
+  }
 
-      // start measuring...
-      checkedInterval = setInterval(function () {
-          // check if we're reaching a point in the music where a special sound is played
-          if (bellInstances[currentInstanceCounter] && bellInstances[currentInstanceCounter].time.toFixed(2) === musicPlayer.currentTime.toFixed(2)) {
-            // start timer to calculate response time
-            startTime = new Date().getTime();
-
-            // move on to next (possible) special sound to look out for
-            if (currentInstanceCounter < bellInstances.length) currentInstanceCounter++;
-          }
-      }, 5);
-    });
-
-    musicPlayer.addEventListener('pause', (event) => {
-      clearInterval(checkedInterval);
-    });
-
-    musicPlayer.addEventListener('ended', (event) => {
-      clearInterval(checkedInterval);
-      onExerciseEnd(soundCaught);
-    });
-  }, [bellInstances, config, onExerciseEnd, soundCaught]);
 
   const controlAudio = (e) => {
     e.preventDefault();
@@ -73,13 +81,12 @@ export const ListeningComp = ({ config }) => {
           id={`music-player`}
           controls
           src={audioSrc}
-          style={{display: "none"}}>
+          style={{display: "none"}}
+          >
         Your browser does not support the <code>audio</code> element.
       </audio>
 
       <button id="audio-control" onClick={controlAudio}>Play Audio</button>
-
-      { soundCaught.map(sc => <p key={sc.iteration}>Bell number {sc.iteration}, originally played at {sc.soundAt}, was caught within {sc.time} seconds.</p>)}
     </div>
   );
 }
