@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { HeaderComp } from "../header";
 import { ListeningComp } from "../listening"
 import { QuestionComp } from "../question";
 
@@ -181,8 +182,8 @@ export const ExamComp = ({ onDone }) => {
 
   return (
     <div className="exam">
-    <h1 id="exam-title" >Exam</h1>
-    <hr></hr>
+    <HeaderComp />
+    <hr />
     { !started ? (
       <div className="exam-intro">
         <label className="exam-intro__hint"><i>Click the blue tiles with ▶ to play the clips.</i></label>
