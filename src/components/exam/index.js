@@ -140,8 +140,8 @@ export const ExamComp = ({ onDone }) => {
   const IntroductionComp = () => {
     return (
       <div className="exam-intro">
-          <p style={{marginBottom: "0"}}>First, we are going to practice.</p>
-          <p>Listen carefully to the audio clips, are they the <b><u><i>same</i></u></b> or <b><u><i>different</i></u></b>?</p>
+          <p style={{marginBottom: "0"}}>We gaan eerst even oefenen!</p>
+          <p>Luister goed naar de audio fragmenten, zijn ze <b><u><i>hetzelfde</i></u></b> of <b><u><i>anders</i></u></b>?</p>
           {/* <label className="exam-intro__hint"><i>Click the blue tiles with ▶ to play the clips.</i></label> */}
           <ExampleQuestion />
           <button className="exam-intro__start-button" onClick={() => setStarted(true)}>Continue →</button>

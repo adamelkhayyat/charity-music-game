@@ -87,7 +87,7 @@ export const ListeningComp = ({ config }) => {
           id={`music-player`}
           controls
           src={configuration.current.audioSrc}
-          // style={{display: "none"}}
+          style={{display: "none"}}
           >
         Your browser does not support the <code>audio</code> element.
       </audio>
