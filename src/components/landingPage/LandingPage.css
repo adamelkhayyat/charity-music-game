@@ -16,8 +16,9 @@
   flex-direction: column;
 }
 
-.landing-page__start-button {
-  width: fit-content;
+.landing-page-button {
+  width: 200px;
+  float: right;
   color: #fff;
   background-color: #1abc9c;
   padding: 13px 20px;
@@ -28,6 +29,28 @@
   margin-left: auto;
 }
 
-.landing-page__start-button:hover {
+.landing-page-button-disabled {
+  color: #fff;
+  cursor: not-allowed;
+  background-color: grey;
+}
+
+.landing-page-button:hover {
   opacity: 0.85;
+}
+
+.name-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#name-input__field {
+  width: 350px;
+  height: 50px;
+  font-size: 25px;
+  border-radius: 6px;
+  border: transparent;
+  padding-left: 15px;
+  background-color: #CDCDCD;
 }

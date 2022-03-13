@@ -63,15 +63,6 @@ const ExampleQuestion = () => {
   )
 }
 
-// const StudentNameComp = () => {
-//   return (
-//   <div className="name-input">
-//     <h2>🧒 Please input your name below</h2>
-//     <input id="name-input__field" type="text" placeholder="Enter your full name" name="fullName" />
-//   </div>
-//   );
-// }
-
 export const ExamComp = ({ onDone }) => {
   const [results, setResult] = useState([]);
   const [started, setStarted] = useState(false);
@@ -188,7 +179,6 @@ export const ExamComp = ({ onDone }) => {
       <div className="exam-intro">
         <label className="exam-intro__hint"><i>Click the blue tiles with ▶ to play the clips.</i></label>
         <ExampleQuestion />
-        {/* <StudentNameComp /> */}
         {/* <button className={!continueDisabled ? "exam-intro__start-button" : "exam-intro__start-button exam-intro__start-button-disabled"} onClick={() => !continueDisabled ? setStarted(true) : null}>Continue →</button> */}
         <button className="exam-intro__start-button" onClick={() => setStarted(true)}>Continue →</button>
       </div> ) : (
