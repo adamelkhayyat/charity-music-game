@@ -25,6 +25,13 @@
   margin-left: auto;
 }
 
+.exam-intro__start-button-disabled {
+  width: fit-content;
+  color: #fff;
+  cursor: not-allowed;
+  background-color: grey;
+}
+
 .exam-intro__hr {
   height: 0.5px;
   color: lightgray;
@@ -42,4 +49,19 @@
 #exam-title {
   font-size: 2.5rem;
   margin-bottom: 0;
+}
+
+.name-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#name-input__field {
+  width: 350px;
+  height: 50px;
+  font-size: 25px;
+  border-radius: 6px;
+  border: transparent;
+  padding-left: 15px;
 }

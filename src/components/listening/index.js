@@ -92,7 +92,7 @@ export const ListeningComp = ({ config }) => {
         Your browser does not support the <code>audio</code> element.
       </audio>
 
-      <button id="audio-control" onClick={controlAudio}>Play Audio</button>
+      <button id="audio-control" onClick={controlAudio}>Play Audio ▶</button>
     </div>
   );
 }

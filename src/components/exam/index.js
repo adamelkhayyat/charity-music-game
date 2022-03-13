@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { ListeningComp } from "../listening"
 import { QuestionComp } from "../question";
 
@@ -62,9 +62,19 @@ const ExampleQuestion = () => {
   )
 }
 
+// const StudentNameComp = () => {
+//   return (
+//   <div className="name-input">
+//     <h2>🧒 Please input your name below</h2>
+//     <input id="name-input__field" type="text" placeholder="Enter your full name" name="fullName" />
+//   </div>
+//   );
+// }
+
 export const ExamComp = ({ onDone }) => {
-  const [results, setResult] = useState([])
-  const [started, setStarted] = useState(false)
+  const [results, setResult] = useState([]);
+  const [started, setStarted] = useState(false);
+  const [continueDisabled, setContinueDisabled] = useState(true);
   const [currentQ, setCurrentQ] = useState(0);
   const [currentL, setCurrentL] = useState(0);
   const [currentExercise, setCurrentExercise] = useState(1);
@@ -96,7 +106,6 @@ export const ExamComp = ({ onDone }) => {
   }
 
   const addResults = (result) => {
-    console.log(currentExercise);
     const adjustedResult = {
       ...result,
       exerciseNum: currentExercise,
@@ -104,8 +113,7 @@ export const ExamComp = ({ onDone }) => {
     }
 
     const updatedResults = [...results, adjustedResult]
-    console.log("addResults")
-    console.log(updatedResults);
+
     setResult(updatedResults);
     nextExercise(currentQuestionType);
 
@@ -160,25 +168,15 @@ export const ExamComp = ({ onDone }) => {
     // Stage A1 - same or diff questions
     if (type === Stage.STAGE_A1) {
       const nextQuestionIndex = currentQ + 1;
-      if (nextQuestionIndex < questions.length) {
-        setCurrentQ(nextQuestionIndex);
-      } else {
-        setCurrentQuestionType(Stage.STAGE_A2);
-      }
+      (nextQuestionIndex < questions.length) ? setCurrentQ(nextQuestionIndex) : setCurrentQuestionType(Stage.STAGE_A2);
     } else {
       // Stage A2 - listening questions
       const nextListeningIndex = currentL + 1;
-      if (nextListeningIndex < listening.length) {
-        setCurrentL(nextListeningIndex);
-      }
+      if (nextListeningIndex < listening.length) setCurrentL(nextListeningIndex);
     }
 
-    if (currentExercise <= maxQuestionCount) {
-      setCurrentExercise(currentExercise + 1);
-    } else {
-      console.log("final result");
-      console.log(results);
-    }
+    // next exercise if possible
+    if (currentExercise <= maxQuestionCount) setCurrentExercise(currentExercise + 1);
   }
 
   return (
@@ -189,6 +187,8 @@ export const ExamComp = ({ onDone }) => {
       <div className="exam-intro">
         <label className="exam-intro__hint"><i>Click the blue tiles with ▶ to play the clips.</i></label>
         <ExampleQuestion />
+        {/* <StudentNameComp /> */}
+        {/* <button className={!continueDisabled ? "exam-intro__start-button" : "exam-intro__start-button exam-intro__start-button-disabled"} onClick={() => !continueDisabled ? setStarted(true) : null}>Continue →</button> */}
         <button className="exam-intro__start-button" onClick={() => setStarted(true)}>Continue →</button>
       </div> ) : (
       <div>
