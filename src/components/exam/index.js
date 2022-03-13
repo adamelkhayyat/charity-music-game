@@ -12,53 +12,38 @@ export const Stage = {
 }
 
 const ExampleQuestion = () => {
-  const controlAudio = (e, num) => {
-    e.preventDefault();
-    document.getElementById(`test-music-player-${num}`).play();
+  const [answer, setAnswer] = useState(null);
+
+  const CorrectAnswer = () => {
+    return (
+      <>
+      🎉 <span style={{color: "green", paddingLeft: "5px"}}><b>Correct</b></span> - The audio clips are <i><u><b>different</b></u></i>
+      </>
+    )
   }
+
+  const WrongAnswer = () => {
+    return (
+      <>
+      ❌ <span style={{color: "red", paddingLeft: "5px"}}><b>Wrong</b></span> - The audio clips are <i><u><b>different</b></u></i>
+      </>
+    )
+  }
+
+  const exampleQConfig = {
+    mp3Url1: "https://soundbible.com/mp3/A-Tone-His_Self-1266414414.mp3",
+    mp3Url2: "https://soundbible.com/mp3/Short%20Beep%20Tone-SoundBible.com-1937840853.mp3",
+    correctAnswer: "different",
+    onDone: (_, answerCorrect) => setAnswer(answerCorrect)
+  };
 
   return (
     <div className="exam-intro__example">
-      <label className="exam-intro__example-label"><i><b>Example 1:</b></i></label>
-      <audio
-          id="test-music-player-1"
-          controls
-          src="https://soundbible.com/mp3/sos-morse-code_daniel-simion.mp3"
-          style={{display: "none"}}>
-        Your browser does not support the <code>audio</code> element.
-      </audio>
-      <button id="audio-control" onClick={(e) => controlAudio(e, 1)}>Play Audio 1 ▶</button>
-
-      <audio
-          id="test-music-player-2"
-          controls
-          src="https://soundbible.com/mp3/cartoon-birds-2_daniel-simion.mp3"
-          style={{display: "none"}}>
-        Your browser does not support the <code>audio</code> element.
-      </audio>
-      <button id="audio-control" onClick={(e) => controlAudio(e, 2)}>Play Audio 2 ▶</button>
-      <label className="exam-intro__example-label-explanation">These two rhythms are the <i><u><b>different</b></u></i></label>
-      <hr className="exam-intro__hr"></hr>
-
-      <label className="exam-intro__example-label"><i><b>Example 2:</b></i></label>
-      <audio
-          id="test-music-player-3"
-          controls
-          src="https://soundbible.com/mp3/hard_shoes_1-daniel_simon.mp3"
-          style={{display: "none"}}>
-        Your browser does not support the <code>audio</code> element.
-      </audio>
-      <button id="audio-control" onClick={(e) => controlAudio(e, 3)}>Play Audio 1 ▶</button>
-
-      <audio
-          id="test-music-player-4"
-          controls
-          src="https://soundbible.com/mp3/hard_shoes_1-daniel_simon.mp3"
-          style={{display: "none"}}>
-        Your browser does not support the <code>audio</code> element.
-      </audio>
-      <button id="audio-control" onClick={(e) => controlAudio(e, 4)}>Play Audio 2 ▶</button>
-      <label className="exam-intro__example-label-explanation">These two rhythms are the <i><u><b>same</b></u></i></label>
+      <QuestionComp config={exampleQConfig} />
+      { answer !== null ? <label>
+        { answer && <CorrectAnswer /> }
+        { !answer && <WrongAnswer /> }
+        </label> : null }
     </div>
   )
 }
@@ -66,7 +51,6 @@ const ExampleQuestion = () => {
 export const ExamComp = ({ onDone }) => {
   const [results, setResult] = useState([]);
   const [started, setStarted] = useState(false);
-  const [continueDisabled, setContinueDisabled] = useState(true);
   const [currentQ, setCurrentQ] = useState(0);
   const [currentL, setCurrentL] = useState(0);
   const [currentExercise, setCurrentExercise] = useState(1);
@@ -152,6 +136,28 @@ export const ExamComp = ({ onDone }) => {
     return [l1Config, l2Config];
   }
 
+
+  const IntroductionComp = () => {
+    return (
+      <div className="exam-intro">
+          <p style={{marginBottom: "0"}}>First, we are going to practice.</p>
+          <p>Listen carefully to the audio clips, are they the <b><u><i>same</i></u></b> or <b><u><i>different</i></u></b>?</p>
+          {/* <label className="exam-intro__hint"><i>Click the blue tiles with ▶ to play the clips.</i></label> */}
+          <ExampleQuestion />
+          <button className="exam-intro__start-button" onClick={() => setStarted(true)}>Continue →</button>
+      </div> 
+    );
+  }
+
+  const CompleteExamComp = () => {
+    return (
+      <div>
+        <h2>{currentQuestionType}: {currentExercise}</h2>
+        { currentQuestionType === Stage.STAGE_A1 ?  <QuestionComp config={questions[currentQ]} /> : <ListeningComp config={listening[currentL]} /> }
+      </div>
+    );
+  }
+
   const questions = getQuestionsConfig();
   const listening = getListeningConfig();
   const maxQuestionCount = questions.length + listening.length;
@@ -175,19 +181,8 @@ export const ExamComp = ({ onDone }) => {
     <div className="exam">
     <HeaderComp />
     <hr />
-    { !started ? (
-      <div className="exam-intro">
-        <label className="exam-intro__hint"><i>Click the blue tiles with ▶ to play the clips.</i></label>
-        <ExampleQuestion />
-        {/* <button className={!continueDisabled ? "exam-intro__start-button" : "exam-intro__start-button exam-intro__start-button-disabled"} onClick={() => !continueDisabled ? setStarted(true) : null}>Continue →</button> */}
-        <button className="exam-intro__start-button" onClick={() => setStarted(true)}>Continue →</button>
-      </div> ) : (
-      <div>
-        <h2>{currentQuestionType}: {currentExercise}</h2>
-        { currentQuestionType === Stage.STAGE_A1 ?  <QuestionComp config={questions[currentQ]} /> : <ListeningComp config={listening[currentL]} /> }
-      </div>
-      )
-    }
+    { !started && <IntroductionComp />}
+    { started && <CompleteExamComp />}
     </div>
   )
 }
