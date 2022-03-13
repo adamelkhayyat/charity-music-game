@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { HeaderComp } from "../header"
 import './LandingPage.css';
 
 const ExplanationElement = () => {
@@ -32,8 +33,9 @@ const SoundTest = () => {
 export const LandingPageComp = () => {
   return (
     <div className="landing-page">
-    <h1 id="exam-title" >Exam</h1>
-    <hr></hr>
+    <HeaderComp />
+    <hr />
+
     <div className="landing-page__content">
       <ExplanationElement />
       <SoundTest />
