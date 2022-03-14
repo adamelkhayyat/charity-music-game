@@ -2,13 +2,14 @@ import { useState } from "react";
 import { HeaderComp } from "../header";
 import { ListeningComp } from "../listening"
 import { QuestionComp } from "../question";
+import { saveResult } from "../../firebase"
 
 import './Exam.css';
 
 export const Stage = {
-  STAGE_A0: "Stage A",
-  STAGE_A1: "Stage A1",
-  STAGE_A2: "Stage A2",
+  STAGE_A0: "StageA",
+  STAGE_A1: "StageA1",
+  STAGE_A2: "StageA2",
 }
 
 const ExampleQuestion = () => {
@@ -94,7 +95,22 @@ export const ExamComp = ({ onDone }) => {
     nextExercise(currentQuestionType);
 
     if (currentExercise >= maxQuestionCount) {
-      onDone(updatedResults);
+      const username = localStorage.getItem('toon-twist-username');
+      console.log(username);
+      console.log(updatedResults);
+      let stageA1Results = [];
+      let stageA2Results = [];
+
+      updatedResults.forEach(result => {
+        console.log(result)
+        if (result.exerciseType === "StageA1") {
+          stageA1Results = stageA1Results.concat(result);
+        } else if (result.exerciseType === "StageA2") {
+          stageA2Results = stageA2Results.concat(result);
+        }
+      })
+      console.log(username, stageA1Results, stageA2Results);
+      saveResult('test-exam-2', username, stageA1Results, stageA2Results);
     }
   }
 
@@ -103,7 +119,7 @@ export const ExamComp = ({ onDone }) => {
   const getListeningConfig = () => {
     const l1Config = {
       keyNote: "Rain",
-      audioSrc: "https://soundbible.com/mp3/alien-spaceship_daniel_simion.mp3",
+      audioSrc: "https://soundbible.com/mp3/Short%20Beep%20Tone-SoundBible.com-1937840853.mp3",
       bellInstances: [
         {
           time: 2,
@@ -120,7 +136,7 @@ export const ExamComp = ({ onDone }) => {
 
     const l2Config = {
       keyNote: "Alien",
-      audioSrc: "https://soundbible.com/mp3/alien-spaceship_daniel_simion.mp3",
+      audioSrc: "https://soundbible.com/mp3/Short%20Beep%20Tone-SoundBible.com-1937840853.mp3",
       bellInstances: [
         {
           time: 5,

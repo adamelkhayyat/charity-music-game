@@ -62,7 +62,7 @@ export const ResultComp = ({results}) => {
             </tr>
             {listeningResults.map(result =>
               <>
-              {result.soundCaught.map((sr, i) =>
+              {result.soundCaught && result.soundCaught.map((sr, i) =>
                 <tr key={i}>
                     <td>{result.exerciseNum}.{i + 1}</td>
                     <td>{sr.iteration + 1}</td>

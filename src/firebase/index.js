@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set } from "firebase/database";
 
 const app = initializeApp({
-  apiKey: "x",
+  apiKey: "AIzaSyCxByr2kg0yiKZdUy0A_7RvYjVMovqeKtg",
   authDomain: "toon-twist-project.firebaseapp.com",
   databaseURL: "https://toon-twist-project-default-rtdb.europe-west1.firebasedatabase.app/",
   projectId: "toon-twist-projectD",
