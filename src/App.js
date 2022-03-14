@@ -9,6 +9,7 @@ import { useState } from "react";
 import { LandingPageComp } from "./components/landingPage";
 import { ResultComp } from "./components/result";
 import { ExamComp } from "./components/exam";
+import { AdminComp } from "./components/admin";
 
 // styles
 import './App.css';
@@ -28,7 +29,7 @@ const App = () => {
             <Route path="/" exact element={<LandingPageComp />} />
             <Route path="/exam" element={<ExamComp onDone={navigateToResults}/>} />
             <Route path="/result" element={<ResultComp results={results} />} />
-            <Route path="/admin" element={<div>Admin page - TODO</div>} />
+            <Route path="/admin" element={<AdminComp />} />
             <Route path="*" element={<div>404 ERROR - PAGE NOT FOUND - TODO</div>} />
         </Routes>
     </div>
