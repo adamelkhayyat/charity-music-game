@@ -1,14 +1,18 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set } from "firebase/database";
 
-const app = initializeApp({
-  apiKey: "AIzaSyCxByr2kg0yiKZdUy0A_7RvYjVMovqeKtg",
+export const appConfig = {
+  apiKey: "x",
   authDomain: "toon-twist-project.firebaseapp.com",
-  databaseURL: "https://toon-twist-project-default-rtdb.europe-west1.firebasedatabase.app/",
-  projectId: "toon-twist-projectD",
+  databaseURL: "https://toon-twist-project-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "toon-twist-project",
   storageBucket: "toon-twist-project.appspot.com",
   messagingSenderId: "806611453811",
-});
+  appId: "1:806611453811:web:6cadb21f90f3f9fda22706",
+  measurementId: "G-EJ2VKKJ1T6"
+};
+
+const app = initializeApp(appConfig);
 
 // Get a reference to the database service
 export const database = getDatabase(app);

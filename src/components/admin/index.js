@@ -1,8 +1,14 @@
 import { ref, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
-import { database } from "../../firebase"
 import { HeaderComp } from "../header";
 import { ResultComp } from "../result";
+import {
+  useNavigate
+} from "react-router-dom";
+
+// firebase
+import { database } from "../../firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import './Admin.css';
 
@@ -97,6 +103,17 @@ export const AdminComp = () => {
   const [examResults, setExamResults] = useState({});
   const [showExamResults, setShowExamResults] = useState(true);
   const [showExams, setShowExams] = useState(false);
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/login");
+      }
+    });
+  }, []);
+
 
   const showExamManagementView = () => {
     setShowExams(true);
