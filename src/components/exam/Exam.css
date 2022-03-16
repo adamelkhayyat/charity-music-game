@@ -1,5 +1,7 @@
 .exam {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .exam-intro {
@@ -39,4 +41,41 @@
   height: 0.5px;
   color: lightgray;
   margin-top: 0;
+}
+
+.exam-end {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.exam-end-message {
+  display: flex;
+  flex-direction: row;
+  font-size: 100px;
+  justify-content: center;
+  margin-top: 20px;
+  text-align: center;
+}
+
+#exam-end-img {
+  width: 120px;
+  height: 120px;
+}
+
+#exam-repeat-btn {
+  margin-top: 50px;
+  width: fit-content;
+  color: #fff;
+  background-color: #1abc9c;
+  padding: 13px 20px;
+  font-size: 22px;
+  line-height: 1.227;
+  border-radius: 6px;
+  cursor: pointer;
+  border: transparent;
+}
+
+#exam-repeat-btn:hover {
+  opacity: 0.85;
 }

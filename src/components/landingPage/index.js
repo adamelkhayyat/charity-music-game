@@ -63,7 +63,7 @@ export const LandingPageComp = () => {
       <p>Voor je begint, klik eerst op de knop hieronder om te controleren of je geluid goed werkt:</p>
       <SoundTest />
       <Link to="/exam">
-      <button className="landing-page-button">Continue →</button>
+        <button className="landing-page-button">Continue →</button>
       </Link>
     </>);
   }

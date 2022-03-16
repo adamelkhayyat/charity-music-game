@@ -2,6 +2,9 @@ import { useState } from "react";
 import { HeaderComp } from "../header";
 import { ListeningComp } from "../listening"
 import { QuestionComp } from "../question";
+import { Link } from "react-router-dom";
+
+// firebase
 import { saveResult } from "../../firebase"
 
 import './Exam.css';
@@ -50,8 +53,12 @@ const ExampleQuestion = () => {
 }
 
 export const ExamComp = ({ onDone }) => {
-  const [results, setResult] = useState([]);
+  // status states
   const [started, setStarted] = useState(false);
+  const [end, setEnd] = useState(false);
+  
+  // exam states
+  const [results, setResult] = useState([]);
   const [currentQ, setCurrentQ] = useState(0);
   const [currentL, setCurrentL] = useState(0);
   const [currentExercise, setCurrentExercise] = useState(1);
@@ -96,21 +103,19 @@ export const ExamComp = ({ onDone }) => {
 
     if (currentExercise >= maxQuestionCount) {
       const username = localStorage.getItem('toon-twist-username');
-      console.log(username);
-      console.log(updatedResults);
       let stageA1Results = [];
       let stageA2Results = [];
 
       updatedResults.forEach(result => {
-        console.log(result)
         if (result.exerciseType === "StageA1") {
           stageA1Results = stageA1Results.concat(result);
         } else if (result.exerciseType === "StageA2") {
           stageA2Results = stageA2Results.concat(result);
         }
       })
-      console.log(username, stageA1Results, stageA2Results);
+
       saveResult('test-exam-2', username, stageA1Results, stageA2Results);
+      setEnd(true);
     }
   }
 
@@ -174,6 +179,20 @@ export const ExamComp = ({ onDone }) => {
     );
   }
 
+  const EndComp = () => {
+    return (
+      <div className="exam-end">
+        <div className="exam-end-message">
+          Good job!
+          <img id="exam-end-img" src={process.env.PUBLIC_URL + '/media/confetti-gif.webp'} alt="confetti-gif"/>
+        </div>
+        <Link to="/exam">
+          <button id="exam-repeat-btn">Repeat exam</button>
+        </Link>
+      </div>
+    )
+  }
+
   const questions = getQuestionsConfig();
   const listening = getListeningConfig();
   const maxQuestionCount = questions.length + listening.length;
@@ -198,7 +217,8 @@ export const ExamComp = ({ onDone }) => {
     <HeaderComp />
     <hr />
     { !started && <IntroductionComp />}
-    { started && <CompleteExamComp />}
+    { (started && !end) && <CompleteExamComp />}
+    { end && <EndComp /> }
     </div>
   )
 }
