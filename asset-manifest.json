@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/charity-music-game/static/css/main.f8320fe5.css",
-    "main.js": "/charity-music-game/static/js/main.30fe4068.js",
+    "main.css": "/charity-music-game/static/css/main.0d4f7f5d.css",
+    "main.js": "/charity-music-game/static/js/main.f5cb362b.js",
     "static/js/787.edd59a96.chunk.js": "/charity-music-game/static/js/787.edd59a96.chunk.js",
     "index.html": "/charity-music-game/index.html",
-    "main.f8320fe5.css.map": "/charity-music-game/static/css/main.f8320fe5.css.map",
-    "main.30fe4068.js.map": "/charity-music-game/static/js/main.30fe4068.js.map",
+    "main.0d4f7f5d.css.map": "/charity-music-game/static/css/main.0d4f7f5d.css.map",
+    "main.f5cb362b.js.map": "/charity-music-game/static/js/main.f5cb362b.js.map",
     "787.edd59a96.chunk.js.map": "/charity-music-game/static/js/787.edd59a96.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f8320fe5.css",
-    "static/js/main.30fe4068.js"
+    "static/css/main.0d4f7f5d.css",
+    "static/js/main.f5cb362b.js"
   ]
 }
