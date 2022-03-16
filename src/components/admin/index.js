@@ -114,7 +114,6 @@ export const AdminComp = () => {
     });
   }, []);
 
-
   const showExamManagementView = () => {
     setShowExams(true);
     setShowExamResults(false);

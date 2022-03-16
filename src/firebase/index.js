@@ -1,8 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set } from "firebase/database";
 
-export const appConfig = {
-  apiKey: "x",
+const baseConfig = {
   authDomain: "toon-twist-project.firebaseapp.com",
   databaseURL: "https://toon-twist-project-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "toon-twist-project",
@@ -11,6 +10,19 @@ export const appConfig = {
   appId: "1:806611453811:web:6cadb21f90f3f9fda22706",
   measurementId: "G-EJ2VKKJ1T6"
 };
+
+const devConfig = {
+  apiKey: "x",
+  ...baseConfig,
+}
+
+// restricted by HTTP referrerers key for prod
+const prodConfig = {
+  apiKey: "AIzaSyD4FuzN9ogo4rKHmu3x6Z8ky1nm6SirXB4",
+  ...baseConfig,
+}
+
+export const appConfig = process.env.NODE_ENV === "production" ? prodConfig : devConfig;
 
 const app = initializeApp(appConfig);
 

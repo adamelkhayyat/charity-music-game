@@ -1,12 +1,12 @@
 
 import { useEffect } from "react";
-import { HeaderComp } from "../header"
+import { HeaderComp } from "../header";
 
 // firebase
 import firebase from 'firebase/compat/app';
-import * as firebaseui from 'firebaseui'
-import 'firebaseui/dist/firebaseui.css'
-import { appConfig } from "../../firebase"
+import * as firebaseui from 'firebaseui';
+import 'firebaseui/dist/firebaseui.css';
+import { appConfig } from "../../firebase";
 
 
 export const LoginComp = () => {
@@ -24,7 +24,7 @@ export const LoginComp = () => {
           return true;
         },
       },
-      signInSuccessUrl: 'http://localhost:3000/charity-music-game/#/admin',
+      signInSuccessUrl: `${window.location.origin}/charity-music-game/#/admin`,
       signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
