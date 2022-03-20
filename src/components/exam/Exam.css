@@ -79,3 +79,11 @@
 #exam-repeat-btn:hover {
   opacity: 0.85;
 }
+
+#exam-progress {
+  width: fit-content;
+  padding: 3px 5px 3px 5px;
+  border-radius: 6px;
+  color: white;
+  background-color: orange;
+}

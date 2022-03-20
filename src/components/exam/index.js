@@ -173,7 +173,7 @@ export const ExamComp = ({ onDone }) => {
   const CompleteExamComp = () => {
     return (
       <div>
-        <h2>{currentQuestionType}: {currentExercise}</h2>
+        <h2 id="exam-progress">{currentQuestionType}: Oefening {currentQuestionType === Stage.STAGE_A1 ? currentQ + 1 : currentL + 1}</h2>
         { currentQuestionType === Stage.STAGE_A1 ?  <QuestionComp config={questions[currentQ]} /> : <ListeningComp config={listening[currentL]} /> }
       </div>
     );
