@@ -32,10 +32,7 @@ export const ExamComp = () => {
 
   useEffect(() => {
     // exam states
-    console.log("comp");
-    console.log(localStorage.getItem("examId"));
     const examId = localStorage.getItem("examId");
-    console.log("examId", examId);
 
     switch (parseInt(examId)) {
       case 1:
@@ -96,13 +93,10 @@ export const ExamComp = () => {
         }
       })
 
-      console.log(timeTaken);
       saveResult(examName, username, stageA1Results, stageA2Results, timeTaken);
       navigate('/exam/end');
     }
   }
-
-  console.log(examConfig.current ? examConfig.current.stageA1Config(addResults) : null);
 
   const questions = examConfig.current ? examConfig.current.stageA1Config(addResults) : null;
   const listening = examConfig.current ? examConfig.current.stageA2Config(addResults) : null;
