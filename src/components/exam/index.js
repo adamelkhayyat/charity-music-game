@@ -1,8 +1,12 @@
 import { useState } from "react";
+
+// comps
 import { HeaderComp } from "../header";
 import { ListeningComp } from "../listening"
 import { QuestionComp } from "../question";
-// import { Link } from "react-router-dom";
+
+// navigation
+import { useNavigate } from "react-router-dom";
 
 // firebase
 import { saveResult } from "../../firebase"
@@ -15,47 +19,8 @@ export const Stage = {
   STAGE_A2: "StageA2",
 }
 
-const ExampleQuestion = () => {
-  const [answer, setAnswer] = useState(null);
-
-  const CorrectAnswer = () => {
-    return (
-      <>
-      🎉 <span style={{color: "green", paddingLeft: "5px"}}><b>Correct</b></span> - De audioclips zijn <i><u><b>anders</b></u></i>
-      </>
-    )
-  }
-
-  const WrongAnswer = () => {
-    return (
-      <>
-      ❌ <span style={{color: "red", paddingLeft: "5px"}}><b>Fout</b></span> - De audioclips zijn <i><u><b>anders</b></u></i>
-      </>
-    )
-  }
-
-  const exampleQConfig = {
-    mp3Url1: "https://soundbible.com/mp3/A-Tone-His_Self-1266414414.mp3",
-    mp3Url2: "https://soundbible.com/mp3/Short%20Beep%20Tone-SoundBible.com-1937840853.mp3",
-    correctAnswer: "different",
-    onDone: (_, answerCorrect) => setAnswer(answerCorrect)
-  };
-
-  return (
-    <div className="exam-intro__example">
-      <QuestionComp config={exampleQConfig} />
-      { answer !== null ? <label>
-        { answer && <CorrectAnswer /> }
-        { !answer && <WrongAnswer /> }
-        </label> : null }
-    </div>
-  )
-}
-
 export const ExamComp = ({ onDone }) => {
-  // status states
-  const [started, setStarted] = useState(false);
-  const [end, setEnd] = useState(false);
+  const navigate = useNavigate();
   
   // exam states
   const [results, setResult] = useState([]);
@@ -117,7 +82,7 @@ export const ExamComp = ({ onDone }) => {
       })
 
       saveResult('test-exam-2', username, stageA1Results, stageA2Results);
-      setEnd(true);
+      navigate('/exam/end');
     }
   }
 
@@ -159,17 +124,6 @@ export const ExamComp = ({ onDone }) => {
     return [l1Config, l2Config];
   }
 
-
-  const IntroductionComp = () => {
-    return (
-      <div className="exam-intro">
-          <p style={{marginBottom: "0"}}>We gaan eerst even oefenen!</p>
-          <ExampleQuestion />
-          <button className="exam-intro__start-button" onClick={() => setStarted(true)}>Doorgaan →</button>
-      </div> 
-    );
-  }
-
   const CompleteExamComp = () => {
     return (
       <div>
@@ -177,20 +131,6 @@ export const ExamComp = ({ onDone }) => {
         { currentQuestionType === Stage.STAGE_A1 ?  <QuestionComp config={questions[currentQ]} /> : <ListeningComp config={listening[currentL]} /> }
       </div>
     );
-  }
-
-  const EndComp = () => {
-    return (
-      <div className="exam-end">
-        <div className="exam-end-message">
-          Goed gedaan!
-          <img id="exam-end-img" src={process.env.PUBLIC_URL + '/media/confetti-gif.webp'} alt="confetti-gif"/>
-        </div>
-        {/* <Link to="/exam">
-          <button id="exam-repeat-btn">Examen Herhalen</button>
-        </Link> */}
-      </div>
-    )
   }
 
   const questions = getQuestionsConfig();
@@ -214,11 +154,10 @@ export const ExamComp = ({ onDone }) => {
 
   return (
     <div className="exam">
-    <HeaderComp />
-    <hr />
-    { !started && <IntroductionComp />}
-    { (started && !end) && <CompleteExamComp />}
-    { end && <EndComp /> }
+      <HeaderComp />
+      <hr />
+      <label className="exam-intro__hint"><i>Klik op de blauwe tegels met ▶ om de clips af te spelen.</i></label>
+      <CompleteExamComp />
     </div>
   )
 }
