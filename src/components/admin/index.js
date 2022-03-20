@@ -1,24 +1,20 @@
-import { ref, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
+
+// comps
 import { HeaderComp } from "../header";
 import { ResultComp } from "../result";
+
+// navigation
 import {
   useNavigate
 } from "react-router-dom";
 
 // firebase
+import { ref, onValue } from "firebase/database";
 import { database } from "../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import './Admin.css';
-
-const Exams = () => {
-  return (
-    <div className="exams-view">
-      Exam Management - TODO
-    </div>
-  );
-}
 
 const UserResult = ({result}) => {
   const [showResults, setShowResults] = useState(false);
@@ -100,10 +96,8 @@ const ExamResults = ({examResults}) => {
 }
 
 export const AdminComp = () => {
-  const [examResults, setExamResults] = useState({});
-  const [showExamResults, setShowExamResults] = useState(true);
-  const [showExams, setShowExams] = useState(false);
   const navigate = useNavigate();
+  const [examResults, setExamResults] = useState({});
   
   useEffect(() => {
     const auth = getAuth();
@@ -113,16 +107,6 @@ export const AdminComp = () => {
       }
     });
   }, []);
-
-  const showExamManagementView = () => {
-    setShowExams(true);
-    setShowExamResults(false);
-  }
-
-  const showExamResultsView = () => {
-    setShowExams(false);
-    setShowExamResults(true);
-  }
 
   useEffect(() => {
     const starCountRef = ref(database, 'examResults/');
@@ -138,14 +122,10 @@ export const AdminComp = () => {
       <hr />
       <h1>Admin Panel</h1>
       <div className="admin-panel__content">
-        <div className={`exam-options ${showExamResults ? "exam-options__selected" : ""}`} onClick={showExamResultsView}>
+        <div className="exam-options">
           Exam Results
         </div>
-        <div className={`exam-options ${showExams ? "exam-options__selected" : ""}`} onClick={showExamManagementView}>
-          Exam Management
-        </div>
       </div>
-      {showExams && <Exams />}
-      {showExamResults && <ExamResults examResults={examResults}/>}
+      <ExamResults examResults={examResults}/>
     </div>);
 }

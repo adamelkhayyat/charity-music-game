@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // comps
 import { HeaderComp } from "../header";
@@ -7,6 +7,9 @@ import { QuestionComp } from "../question";
 
 // navigation
 import { useNavigate } from "react-router-dom";
+
+// exam config
+import { examAConfig, examBConfig, examCConfig, examDConfig } from "../../examConfig"
 
 // firebase
 import { saveResult } from "../../firebase"
@@ -19,40 +22,49 @@ export const Stage = {
   STAGE_A2: "StageA2",
 }
 
-export const ExamComp = ({ onDone }) => {
+export const ExamComp = () => {
   const navigate = useNavigate();
   
-  // exam states
+  let examConfig = useRef(null);
+  
+  const [loading, setLoading] = useState(true);
+  const [startTime, setStartTime] = useState();
+
+  useEffect(() => {
+    // exam states
+    console.log("comp");
+    console.log(localStorage.getItem("examId"));
+    const examId = localStorage.getItem("examId");
+    console.log("examId", examId);
+
+    switch (parseInt(examId)) {
+      case 1:
+        examConfig.current = examAConfig;
+        break;
+      case 2:
+        examConfig.current = examBConfig;
+        break;
+      case 3:
+        examConfig.current = examCConfig;
+        break;
+      case 4:
+        examConfig.current = examDConfig;
+        break;
+      default:
+        break;
+    }
+
+    setLoading(false);
+
+    setStartTime(new Date().getTime());
+  }, []);
+
+
   const [results, setResult] = useState([]);
   const [currentQ, setCurrentQ] = useState(0);
   const [currentL, setCurrentL] = useState(0);
   const [currentExercise, setCurrentExercise] = useState(1);
   const [currentQuestionType, setCurrentQuestionType] = useState(Stage.STAGE_A1);
-
-  const getQuestionsConfig = () => {
-    const q1Config = {
-      mp3Url1: "https://soundbible.com/mp3/Cow_Moo-Mike_Koenig-42670858.mp3",
-      mp3Url2: "https://soundbible.com/mp3/Cow_Moo-Mike_Koenig-42670858.mp3",
-      correctAnswer: "same",
-      onDone: (reactionTime, answerCorrect) => addResults({reactionTime, answerCorrect})
-    };
-
-    const q2Config = {
-      mp3Url1: "https://soundbible.com/mp3/Cow_Moo-Mike_Koenig-42670858.mp3",
-      mp3Url2: "https://soundbible.com/mp3/Short%20Beep%20Tone-SoundBible.com-1937840853.mp3",
-      correctAnswer: "different",
-      onDone: (reactionTime, answerCorrect) => addResults({reactionTime, answerCorrect})
-    };
-
-    const q3Config = {
-      mp3Url1: "https://soundbible.com/mp3/Dying%20Robot-SoundBible.com-1721415199.mp3",
-      mp3Url2: "https://soundbible.com/mp3/Dying%20Robot-SoundBible.com-1721415199.mp3",
-      correctAnswer: "same",
-      onDone: (reactionTime, answerCorrect) => addResults({reactionTime, answerCorrect})
-    };
-
-    return [q1Config, q2Config, q3Config];
-  }
 
   const addResults = (result) => {
     const adjustedResult = {
@@ -66,9 +78,12 @@ export const ExamComp = ({ onDone }) => {
     setResult(updatedResults);
     nextExercise(currentQuestionType);
 
-    if (currentExercise >= maxQuestionCount) {
+    if (currentExercise >= maxQuestionCount && examConfig.current) {
       const userEmail = localStorage.getItem('user-email');
       const username = userEmail.split("@")[0];
+      const examName = examConfig.current.examName;
+      const endTime = new Date().getTime();
+      const timeTaken = `${Math.round((endTime - startTime) / 60000)} minutes`;
 
       let stageA1Results = [];
       let stageA2Results = [];
@@ -81,61 +96,17 @@ export const ExamComp = ({ onDone }) => {
         }
       })
 
-      saveResult('test-exam-2', username, stageA1Results, stageA2Results);
+      console.log(timeTaken);
+      saveResult(examName, username, stageA1Results, stageA2Results, timeTaken);
       navigate('/exam/end');
     }
   }
 
-  //audioSrc: "https://soundbible.com/mp3/heavy-rain-daniel_simon.mp3",
-  // time is in seconds, so 00:24 => 24, 01:30 => 90
-  const getListeningConfig = () => {
-    const l1Config = {
-      keyNote: "Rain",
-      audioSrc: "https://soundbible.com/mp3/Short%20Beep%20Tone-SoundBible.com-1937840853.mp3",
-      bellInstances: [
-        {
-          time: 2,
-        },
-        {
-          time: 5,
-        },
-        {
-          time: 10,
-        },
-      ],
-      onExerciseEnd: (soundCaught) => addResults({soundCaught}),
-  };
+  console.log(examConfig.current ? examConfig.current.stageA1Config(addResults) : null);
 
-    const l2Config = {
-      keyNote: "Alien",
-      audioSrc: "https://soundbible.com/mp3/Short%20Beep%20Tone-SoundBible.com-1937840853.mp3",
-      bellInstances: [
-        {
-          time: 5,
-        },
-        {
-          time: 10,
-        },
-    ],
-    onExerciseEnd: (soundCaught) => addResults({soundCaught}),
-  };
-
-
-    return [l1Config, l2Config];
-  }
-
-  const CompleteExamComp = () => {
-    return (
-      <div>
-        <h2 id="exam-progress">{currentQuestionType}: Oefening {currentQuestionType === Stage.STAGE_A1 ? currentQ + 1 : currentL + 1}</h2>
-        { currentQuestionType === Stage.STAGE_A1 ?  <QuestionComp config={questions[currentQ]} /> : <ListeningComp config={listening[currentL]} /> }
-      </div>
-    );
-  }
-
-  const questions = getQuestionsConfig();
-  const listening = getListeningConfig();
-  const maxQuestionCount = questions.length + listening.length;
+  const questions = examConfig.current ? examConfig.current.stageA1Config(addResults) : null;
+  const listening = examConfig.current ? examConfig.current.stageA2Config(addResults) : null;
+  const maxQuestionCount = questions && listening ? questions.length + listening.length : null;
 
   const nextExercise = (type) => {
     // Stage A1 - same or diff questions
@@ -152,12 +123,27 @@ export const ExamComp = ({ onDone }) => {
     if (currentExercise <= maxQuestionCount) setCurrentExercise(currentExercise + 1);
   }
 
+  const CompleteExamComp = () => {
+    return (
+      <div>
+        <h2 id="exam-progress">{currentQuestionType}: Oefening {currentQuestionType === Stage.STAGE_A1 ? currentQ + 1 : currentL + 1}</h2>
+        
+        { examConfig.current && !loading ? (
+          <>
+            { currentQuestionType === Stage.STAGE_A1 ?  <QuestionComp config={questions[currentQ]} /> : <ListeningComp config={listening[currentL]} /> }
+          </>
+        ): null }
+        
+      </div>
+    );
+  }
+
   return (
     <div className="exam">
       <HeaderComp />
       <hr />
-      <label className="exam-intro__hint"><i>Klik op de blauwe tegels met ▶ om de clips af te spelen.</i></label>
-      <CompleteExamComp />
+        <label className="exam-intro__hint"><i>Klik op de blauwe tegels met ▶ om de clips af te spelen.</i></label>
+        <CompleteExamComp />
     </div>
   )
 }

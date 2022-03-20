@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import './Question.css';
 
-export const QuestionComp = ({config}) => {
-  const { mp3Url1, mp3Url2, correctAnswer, onDone } = config;
+export const QuestionComp = ({config, hasButtons = true, hasTitle = true}) => {
+  const { mp3Url1, mp3Url2, correctAnswer, id = "",onDone } = config;
   let startTime = 0;
   let reactionTime = 0;
   let givenAnswer = "";
@@ -17,7 +17,7 @@ export const QuestionComp = ({config}) => {
 
   const controlAudio = (e, num) => {
     e.preventDefault();
-    document.getElementById(`music-player-${num}`).play();
+    document.getElementById(`music-player-${id}-${num}`).play();
   }
 
   const registerAnswer = (answer) => {
@@ -28,11 +28,13 @@ export const QuestionComp = ({config}) => {
   return (
     <>
       {/* Question */}
-      <p>Luister goed naar de audio fragmenten, zijn ze <b><u><i>hetzelfde</i></u></b> of <b><u><i>anders</i></u></b>?</p>
+      { hasTitle ? (
+        <p>Luister goed naar de audio fragmenten, zijn ze <b><u><i>hetzelfde</i></u></b> of <b><u><i>anders</i></u></b>?</p>
+      ) : null }
 
       {/* Sound samples */}
       <audio
-          id="music-player-1"
+          id={`music-player-${id}-1`}
           controls
           src={mp3Url1}
           style={{display: "none"}}>
@@ -41,7 +43,7 @@ export const QuestionComp = ({config}) => {
       <button id="audio-control" onClick={(e) => controlAudio(e, 1)}>Audio Afspelen 1 ▶</button>
 
       <audio
-          id="music-player-2"
+          id={`music-player-${id}-2`}
           controls
           onEnded={startTimer}
           src={mp3Url2}
@@ -51,10 +53,12 @@ export const QuestionComp = ({config}) => {
       <button id="audio-control" onClick={(e) => controlAudio(e, 2)}>Audio Afspelen 2 ▶</button>
 
       {/* Answer options */}
-      <div>
+      { hasButtons ? (
+        <div>
         <button className="button-exam-control" onClick={() => registerAnswer("same")}>Hetzelfde</button>
         <button className="button-exam-control" onClick={() => registerAnswer("different")}>Anders</button>
       </div>
+      ) : null }
     </>
   )
 }

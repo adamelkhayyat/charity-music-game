@@ -1,7 +1,6 @@
-import {
-  Routes,
-  Route,
-} from "react-router-dom";
+// navgiation
+import * as React from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 // Comps
 import { LandingPageComp } from "./components/landingPage";
@@ -15,7 +14,18 @@ import { EndComp } from "./components/exam/end";
 // styles
 import './App.css';
 
+// A custom hook that builds on useLocation to parse
+// the query string for you.
+function useQuery() {
+  const { search } = useLocation();
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+
 const App = () => {
+  const query = useQuery();
+  const examId = query.get("examId");
+  if (examId) localStorage.setItem("examId", examId);
+
   return (
     <div className="App">
         <Routes>
