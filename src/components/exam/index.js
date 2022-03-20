@@ -2,7 +2,7 @@ import { useState } from "react";
 import { HeaderComp } from "../header";
 import { ListeningComp } from "../listening"
 import { QuestionComp } from "../question";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 // firebase
 import { saveResult } from "../../firebase"
@@ -21,7 +21,7 @@ const ExampleQuestion = () => {
   const CorrectAnswer = () => {
     return (
       <>
-      🎉 <span style={{color: "green", paddingLeft: "5px"}}><b>Correct</b></span> - The audio clips are <i><u><b>different</b></u></i>
+      🎉 <span style={{color: "green", paddingLeft: "5px"}}><b>Correct</b></span> - De audioclips zijn <i><u><b>anders</b></u></i>
       </>
     )
   }
@@ -29,7 +29,7 @@ const ExampleQuestion = () => {
   const WrongAnswer = () => {
     return (
       <>
-      ❌ <span style={{color: "red", paddingLeft: "5px"}}><b>Wrong</b></span> - The audio clips are <i><u><b>different</b></u></i>
+      ❌ <span style={{color: "red", paddingLeft: "5px"}}><b>Fout</b></span> - De audioclips zijn <i><u><b>anders</b></u></i>
       </>
     )
   }
@@ -102,7 +102,9 @@ export const ExamComp = ({ onDone }) => {
     nextExercise(currentQuestionType);
 
     if (currentExercise >= maxQuestionCount) {
-      const username = localStorage.getItem('toon-twist-username');
+      const userEmail = localStorage.getItem('user-email');
+      const username = userEmail.split("@")[0];
+
       let stageA1Results = [];
       let stageA2Results = [];
 
@@ -162,10 +164,8 @@ export const ExamComp = ({ onDone }) => {
     return (
       <div className="exam-intro">
           <p style={{marginBottom: "0"}}>We gaan eerst even oefenen!</p>
-          <p>Luister goed naar de audio fragmenten, zijn ze <b><u><i>hetzelfde</i></u></b> of <b><u><i>anders</i></u></b>?</p>
-          {/* <label className="exam-intro__hint"><i>Click the blue tiles with ▶ to play the clips.</i></label> */}
           <ExampleQuestion />
-          <button className="exam-intro__start-button" onClick={() => setStarted(true)}>Continue →</button>
+          <button className="exam-intro__start-button" onClick={() => setStarted(true)}>Doorgaan →</button>
       </div> 
     );
   }
@@ -183,12 +183,12 @@ export const ExamComp = ({ onDone }) => {
     return (
       <div className="exam-end">
         <div className="exam-end-message">
-          Good job!
+          Goed gedaan!
           <img id="exam-end-img" src={process.env.PUBLIC_URL + '/media/confetti-gif.webp'} alt="confetti-gif"/>
         </div>
-        <Link to="/exam">
-          <button id="exam-repeat-btn">Repeat exam</button>
-        </Link>
+        {/* <Link to="/exam">
+          <button id="exam-repeat-btn">Examen Herhalen</button>
+        </Link> */}
       </div>
     )
   }

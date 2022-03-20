@@ -28,7 +28,7 @@ export const QuestionComp = ({config}) => {
   return (
     <>
       {/* Question */}
-      <p>Are these two notes the <b>same</b> or <b>different</b>?</p>
+      <p>Luister goed naar de audio fragmenten, zijn ze <b><u><i>hetzelfde</i></u></b> of <b><u><i>anders</i></u></b>?</p>
 
       {/* Sound samples */}
       <audio
@@ -38,7 +38,7 @@ export const QuestionComp = ({config}) => {
           style={{display: "none"}}>
         Your browser does not support the <code>audio</code> element.
       </audio>
-      <button id="audio-control" onClick={(e) => controlAudio(e, 1)}>Play Audio 1 ▶</button>
+      <button id="audio-control" onClick={(e) => controlAudio(e, 1)}>Audio Afspelen 1 ▶</button>
 
       <audio
           id="music-player-2"
@@ -48,12 +48,12 @@ export const QuestionComp = ({config}) => {
           style={{display: "none"}}>
         Your browser does not support the <code>audio</code> element.
       </audio>
-      <button id="audio-control" onClick={(e) => controlAudio(e, 2)}>Play Audio 2 ▶</button>
+      <button id="audio-control" onClick={(e) => controlAudio(e, 2)}>Audio Afspelen 2 ▶</button>
 
       {/* Answer options */}
       <div>
-        <button className="button-exam-control" disabled={givenAnswer ? true : false} onClick={() => registerAnswer("same")}>Same</button>
-        <button className="button-exam-control" disabled={givenAnswer ? true : false} onClick={() => registerAnswer("different")}>Different</button>
+        <button className="button-exam-control" onClick={() => registerAnswer("same")}>Hetzelfde</button>
+        <button className="button-exam-control" onClick={() => registerAnswer("different")}>Anders</button>
       </div>
     </>
   )

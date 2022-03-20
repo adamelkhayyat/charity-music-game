@@ -73,7 +73,6 @@ export const ListeningComp = ({ config }) => {
     return soundHit;
   }
 
-
   const controlAudio = (e) => {
     e.preventDefault();
     const yourAudio = document.getElementById(`music-player`);
@@ -81,10 +80,11 @@ export const ListeningComp = ({ config }) => {
   }
 
   return (
-    <div>
-      <h3>Listen for the <i><u>{configuration.current.keyNote}</u></i></h3>
+    <div style={{display: "flex", flexDirection: "column"}}>
+      <p>Luister goed naar het fragment, als je een <i><u><b>fout</b></u></i>. In de drums hoort in de muziek, druk dan zo snel mogelijk op de <i><u><b>spatiebalk</b></u></i>.</p>
+      <label className="exam-intro__hint"><i>Let op: je kan het fragment maar 1 keer afspelen!</i></label>
       <audio
-          id={`music-player`}
+          id={"music-player"}
           controls
           src={configuration.current.audioSrc}
           style={{display: "none"}}
@@ -92,7 +92,7 @@ export const ListeningComp = ({ config }) => {
         Your browser does not support the <code>audio</code> element.
       </audio>
 
-      <button id="audio-control" onClick={controlAudio}>Play Audio ▶</button>
+      <button id="audio-control" onClick={controlAudio}>Audio Afspelen ▶</button>
     </div>
   );
 }

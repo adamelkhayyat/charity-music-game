@@ -1,7 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { HeaderComp } from "../header"
 import './LandingPage.css';
+
+// firebase
+import firebase from 'firebase/compat/app';
+import * as firebaseui from 'firebaseui';
+import 'firebaseui/dist/firebaseui.css';
+import { appConfig } from "../../firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const SoundTest = () => {
   const controlAudio = (e) => {
@@ -18,7 +25,7 @@ const SoundTest = () => {
           style={{display: "none"}}>
         Your browser does not support the <code>audio</code> element.
       </audio>
-      <button id="audio-control" onClick={(e) => controlAudio(e)} style={{fontSize: "20px"}}>Test sound ▶</button>
+      <button id="audio-control" onClick={(e) => controlAudio(e)} style={{fontSize: "20px"}}>Test Geluid ▶</button>
     </div>
   )
 }
@@ -26,34 +33,38 @@ const SoundTest = () => {
 export const LandingPageComp = () => {
   const [currentStep, steCurrentStep] = useState("username");
 
-  const saveName = () => {
-    const inputField = document.getElementById('name-input__field');
-
-    if (inputField) {
-      const userName = inputField.value;
-
-      if (userName) {
-        localStorage.setItem('toon-twist-username', userName);
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        firebase.initializeApp(appConfig);
+        // auth
+      var uiConfig = {
+        callbacks: {
+          signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+            // User successfully signed in.
+            // Return type determines whether we Doorgaan the redirect automatically
+            // or whether we leave that to developer to handle.
+            localStorage.setItem("user-token", authResult.user.multiFactor.user.accessToken);
+            localStorage.setItem("user-email", authResult.user.multiFactor.user.email);
+            return true;
+          },
+        },
+        signInSuccessUrl: `${window.location.origin}/charity-music-game/#/`,
+        signInOptions: [
+          // Leave the lines as is for the providers you want to offer your users.
+          firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        ],
+      };
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = firebaseui.auth.AuthUI.getInstance() ? firebaseui.auth.AuthUI.getInstance() : new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container-student', uiConfig);
+      } else {
         steCurrentStep("instructions");
       }
-    }
-  }
-
-  const StudentNameComp = () => {
-    const [startEnabled, setStartEnabled] = useState(false);
-
-    const checkValidity = (e) => {
-      e.target.value ? setStartEnabled(true) : setStartEnabled(false);
-    }
-
-    return (
-    <div className="name-input">
-      <h1>Vul hier je naam in 👇</h1>
-      <input id="name-input__field" type="text" onChange={(e) => checkValidity(e)} placeholder="Enter your full name" name="fullName" />
-      <button onClick={saveName} className={`landing-page-button ${startEnabled ? "" : "landing-page-button-disabled"}`}>Start →</button>
-    </div>
-    );
-  }
+    });
+  }, [])
 
   const SoundTestComp = () => {
     return (
@@ -63,7 +74,7 @@ export const LandingPageComp = () => {
       <p>Voor je begint, klik eerst op de knop hieronder om te controleren of je geluid goed werkt:</p>
       <SoundTest />
       <Link to="/exam">
-        <button className="landing-page-button">Continue →</button>
+        <button className="landing-page-button">Doorgaan →</button>
       </Link>
     </>);
   }
@@ -71,7 +82,6 @@ export const LandingPageComp = () => {
   const InstructionsComp = () => {
     const [showReading, setShowReading] = useState(false);
     const [showHearing, setShowHearing] = useState(false);
-
 
     const HearingComp = () => {
       const controlAudio = (e) => {
@@ -104,19 +114,20 @@ export const LandingPageComp = () => {
 
     return (
       <>
+        {/* <label className="exam-intro__hint"><i>Click the blue tiles with ▶ to play the clips.</i></label> */}
         <h2 style={{marginBottom: "0"}}>Instructies,</h2>
         <p >Wil je de instructies zelf lezen of wil je deze horen? Of een combinatie hiervan?</p>
-        <button id="audio-control" onClick={() => setShowReading(true)} style={{fontSize: "20px"}}>Lezen</button>
-        <button id="audio-control" onClick={() => setShowHearing(true)} style={{fontSize: "20px"}}>Horen</button>
-        <button id="audio-control" onClick={(e) => {
+        { (!showReading && !showHearing) && <button id="audio-control" onClick={() => setShowReading(true)} style={{fontSize: "20px"}}>Lezen</button> }
+        { (!showReading && !showHearing) && <button id="audio-control" onClick={() => setShowHearing(true)} style={{fontSize: "20px"}}>Horen</button> }
+        { (!showReading && !showHearing) && <button id="audio-control" onClick={(e) => {
           setShowReading(true)
           setShowHearing(true)
-        }} style={{fontSize: "20px"}}>Lezen + horen</button>
+        }} style={{fontSize: "20px"}}>Lezen + horen</button> }
 
         { showReading && <ReadingComp /> }
         { showHearing &&  <HearingComp />}
 
-        <button onClick={() => {steCurrentStep("soundtest")}} className="landing-page-button">Continue →</button>
+        <button onClick={() => {steCurrentStep("soundtest")}} className="landing-page-button">Doorgaan →</button>
       </>
     );
   }
@@ -128,7 +139,7 @@ export const LandingPageComp = () => {
       <hr />
 
       <div className="landing-page__content">
-        { currentStep === "username" && <StudentNameComp /> }
+        { currentStep === "username" && <div id="firebaseui-auth-container-student" style={{paddingTop: "50px"}}></div> }
         { currentStep === "instructions" && <InstructionsComp /> }
         { currentStep === "soundtest" && <SoundTestComp /> }
       </div>
