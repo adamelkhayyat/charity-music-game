@@ -27,10 +27,60 @@ export const Stage = {
   STAGE_D2: "StageD2",
 }
 
+function fmtMSS(s){return(s-(s%=60))/60+(9<s?':':':0')+s}
+
+
+const TimeoutOverlay = ({ time }) => {
+  return (
+    <div className="time-out">
+      <div className="time-out-msg">
+        <h1>Neem een pauze!</h1>
+        <p>Je kunt verder in <b>{time}</b></p>
+      </div>
+    </div>
+  )
+}
+
 export const ExamComp = () => {
   const navigate = useNavigate();
   
   let results = useRef([]);
+  
+  // TIMEOUT SECTION
+  const [showTimeout, setShowTimeout] = useState(false);
+  const [seconds, setSeconds] = useState(5);
+  const [timeleft, setTimeleft] = useState("5:00");
+
+  // const TIMEOUT_MS = 1200000;  // 20min
+  const TIMEOUT_MS = 10000;
+
+  // 20min timer
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log('timeout');
+      setShowTimeout(true);
+      setSeconds(5);
+    }, TIMEOUT_MS);
+
+    // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+    return () => clearInterval(interval);
+  }, [])
+
+  // 5min timer for pause/break overlay
+  useEffect(() => {
+    setShowTimeout(showTimeout);
+    console.log('second', seconds, showTimeout);
+    
+    if (seconds > 0 && showTimeout) {
+      setTimeout(() => {
+        setSeconds(seconds - 1);
+        setTimeleft(fmtMSS(seconds - 1));
+      }, 1000);
+    } else {
+      setShowTimeout(false);
+    }
+  })
+
   const [examConfig, setExamConfig] = useState();
   const [startTime, setStartTime] = useState();
   const [answered, setAnswered] = useState(false);
@@ -158,6 +208,8 @@ export const ExamComp = () => {
       <hr />
         <label className="exam-intro__hint"><i>Klik op de blauwe tegels met ▶ om de clips af te spelen.</i></label>
         <CompleteExamComp />
+        { showTimeout === true ? <TimeoutOverlay time={timeleft}/> : <h2>No</h2>}
+        {/* <TimeoutOverlay time={timeleft} /> */}
     </div>
   )
 }
