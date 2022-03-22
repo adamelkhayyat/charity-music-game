@@ -29,12 +29,11 @@ const app = initializeApp(appConfig);
 // Get a reference to the database service
 export const database = getDatabase(app);
 
-export const saveResult = (examId, name, stageA1Results, stageA2Results) => {
+export const saveResult = (examId, name, results, timeTaken) => {
   set(ref(database, `examResults/${examId}-${name}`), {
-    stageA1: stageA1Results,
-    stageA2: stageA2Results,
+    results: results,
     submittedAt: new Date().toLocaleString().replace(',',''),
-    timeTaken: 0,
+    timeTaken: timeTaken,
     user: {
       name,
     }

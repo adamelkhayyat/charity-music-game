@@ -20,7 +20,7 @@ export const ListeningComp = ({ config }) => {
 
   // Ended listener
   const endedListener = () => {
-    configuration.current.onExerciseEnd(soundCaught.current);
+    configuration.current.onDone(soundCaught.current, config);
   }
 
   useEffect(() => {

@@ -2,7 +2,7 @@
 import './Question.css';
 
 export const QuestionComp = ({config, hasButtons = true, hasTitle = true}) => {
-  const { mp3Url1, mp3Url2, correctAnswer, id = "",onDone } = config;
+  const { mp3Url1, mp3Url2, correctAnswer, id = "", onDone} = config;
   let startTime = 0;
   let reactionTime = 0;
   let givenAnswer = "";
@@ -12,7 +12,7 @@ export const QuestionComp = ({config, hasButtons = true, hasTitle = true}) => {
   };
   const endTimer = () => {
     reactionTime = (new Date().getTime() - startTime) / 1000;
-    onDone(reactionTime, correctAnswer === givenAnswer);
+    onDone(reactionTime, correctAnswer === givenAnswer, config);
   };
 
   const controlAudio = (e, num) => {

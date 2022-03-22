@@ -9,7 +9,7 @@ import { QuestionComp } from "../question";
 import { useNavigate } from "react-router-dom";
 
 // exam config
-import { examAConfig, examBConfig, examCConfig, examDConfig } from "../../examConfig"
+import { examAConfig, examBConfig } from "../../examConfig"
 
 // firebase
 import { saveResult } from "../../firebase"
@@ -17,117 +17,137 @@ import { saveResult } from "../../firebase"
 import './Exam.css';
 
 export const Stage = {
-  STAGE_A0: "StageA",
   STAGE_A1: "StageA1",
   STAGE_A2: "StageA2",
+  STAGE_B1: "StageB1",
+  STAGE_B2: "StageB2",
+  STAGE_C1: "StageC1",
+  STAGE_C2: "StageC2",
+  STAGE_D1: "StageD1",
+  STAGE_D2: "StageD2",
 }
 
 export const ExamComp = () => {
   const navigate = useNavigate();
   
-  let examConfig = useRef(null);
-  
-  const [loading, setLoading] = useState(true);
+  let results = useRef([]);
+  const [examConfig, setExamConfig] = useState();
   const [startTime, setStartTime] = useState();
+  const [answered, setAnswered] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentStageIndex, setCurrentStageIndex] = useState(0);
+  const [stage, setStage] = useState(null);
 
+  // start up, componentDidMount
   useEffect(() => {
     // exam states
     const examId = localStorage.getItem("examId");
 
     switch (parseInt(examId)) {
       case 1:
-        examConfig.current = examAConfig;
+        const stagesExam1 = Object.values(examAConfig).splice(1,4);
+        setExamConfig(stagesExam1);
+        setCurrentStageIndex(0);
         break;
       case 2:
-        examConfig.current = examBConfig;
-        break;
-      case 3:
-        examConfig.current = examCConfig;
-        break;
-      case 4:
-        examConfig.current = examDConfig;
+        const stagesExam2 = Object.values(examBConfig).splice(1,4);
+        setExamConfig(stagesExam2);
+        setCurrentStageIndex(0);
         break;
       default:
-        break;
+        throw new Error("Unknown exam ID.");
     }
-
-    setLoading(false);
 
     setStartTime(new Date().getTime());
   }, []);
 
-
-  const [results, setResult] = useState([]);
-  const [currentQ, setCurrentQ] = useState(0);
-  const [currentL, setCurrentL] = useState(0);
-  const [currentExercise, setCurrentExercise] = useState(1);
-  const [currentQuestionType, setCurrentQuestionType] = useState(Stage.STAGE_A1);
-
   const addResults = (result) => {
+    const {config, ...rest} = result;
+    const {onDone, ...restConfig} = config;
+
     const adjustedResult = {
-      ...result,
-      exerciseNum: currentExercise,
-      exerciseType: currentQuestionType
+      ...rest,
+      exerciseType: config.stage,
+      config: restConfig
     }
 
-    const updatedResults = [...results, adjustedResult]
+    results.current = [...results.current, adjustedResult]
+    setAnswered(true);
+  }
 
-    setResult(updatedResults);
-    nextExercise(currentQuestionType);
+  // TODO: continnue here.
+  const nextExercise = () => {
+    const currentStage = stage;
+    setAnswered(false);
 
-    if (currentExercise >= maxQuestionCount && examConfig.current) {
-      const userEmail = localStorage.getItem('user-email');
-      const username = userEmail.split("@")[0];
-      const examName = examConfig.current.examName;
-      const endTime = new Date().getTime();
-      const timeTaken = `${Math.round((endTime - startTime) / 60000)} minutes`;
-
-      let stageA1Results = [];
-      let stageA2Results = [];
-
-      updatedResults.forEach(result => {
-        if (result.exerciseType === "StageA1") {
-          stageA1Results = stageA1Results.concat(result);
-        } else if (result.exerciseType === "StageA2") {
-          stageA2Results = stageA2Results.concat(result);
-        }
-      })
-
-      saveResult(examName, username, stageA1Results, stageA2Results, timeTaken);
-      navigate('/exam/end');
+    if (currentQuestionIndex >= currentStage.length - 1) {
+      if (currentStageIndex < 3) {
+        setCurrentStageIndex(currentStageIndex + 1);
+      } else {
+        // end.
+          const userEmail = localStorage.getItem('user-email');
+          const username = userEmail.split("@")[0];
+          const examName = `exam${localStorage.getItem("examId")}`;
+          const endTime = new Date().getTime();
+          const timeTaken = `${Math.round((endTime - startTime) / 60000)} minutes`;
+    
+          saveResult(examName, username, results.current, timeTaken);
+          navigate('/exam/end');
+      }
+    } else {
+      const newQIndex = currentQuestionIndex + 1;
+      setCurrentQuestionIndex(newQIndex);
     }
   }
 
-  const questions = examConfig.current ? examConfig.current.stageA1Config(addResults) : null;
-  const listening = examConfig.current ? examConfig.current.stageA2Config(addResults) : null;
-  const maxQuestionCount = questions && listening ? questions.length + listening.length : null;
+  useEffect(() => {
+    if(examConfig && currentStageIndex >= 0){
+      switch (currentStageIndex) {
+        case 0: // A
+          const stage1 = examConfig[currentStageIndex].stageAConfig(addResults);
+          setStage(stage1);
+          break;
+          case 1: // B
+          const stage2 = examConfig[currentStageIndex].stageBConfig(addResults);
+          setStage(stage2);
+          break;
+        case 2: // C
+          const stage3 = examConfig[currentStageIndex].stageCConfig(addResults);
+          setStage(stage3);
+          break;
+        case 3: // D
+          const stage4 = examConfig[currentStageIndex].stageDConfig(addResults);
+          setStage(stage4);
+          break;
+        default:
+          throw new Error("No stage found!");
+      }
 
-  const nextExercise = (type) => {
-    // Stage A1 - same or diff questions
-    if (type === Stage.STAGE_A1) {
-      const nextQuestionIndex = currentQ + 1;
-      (nextQuestionIndex < questions.length) ? setCurrentQ(nextQuestionIndex) : setCurrentQuestionType(Stage.STAGE_A2);
-    } else {
-      // Stage A2 - listening questions
-      const nextListeningIndex = currentL + 1;
-      if (nextListeningIndex < listening.length) setCurrentL(nextListeningIndex);
+      setCurrentQuestionIndex(0);
     }
+  }, [currentStageIndex, examConfig]);
 
-    // next exercise if possible
-    if (currentExercise <= maxQuestionCount) setCurrentExercise(currentExercise + 1);
+  const CurrentExamQuestion = ({question}) => {
+    return (
+      <>
+        { question.type === "question" ?  <QuestionComp config={question} /> : <ListeningComp config={question} /> }
+        { answered ? <button className="exam-intro__start-button" onClick={() => nextExercise()}>Doorgaan →</button> : null }
+      </>
+    );
   }
 
   const CompleteExamComp = () => {
     return (
       <div>
-        <h2 id="exam-progress">{currentQuestionType}: Oefening {currentQuestionType === Stage.STAGE_A1 ? currentQ + 1 : currentL + 1}</h2>
-        
-        { examConfig.current && !loading ? (
-          <>
-            { currentQuestionType === Stage.STAGE_A1 ?  <QuestionComp config={questions[currentQ]} /> : <ListeningComp config={listening[currentL]} /> }
-          </>
-        ): null }
-        
+        {
+          stage ?
+          (
+              <>
+                <h2 id="exam-progress">{stage[currentQuestionIndex].stage}: Oefening {currentQuestionIndex + 1}</h2>
+                <CurrentExamQuestion question={stage[currentQuestionIndex]} />
+              </>
+          ) : null
+        }
       </div>
     );
   }
