@@ -16,19 +16,7 @@ import { saveResult } from "../../firebase"
 
 import './Exam.css';
 
-export const Stage = {
-  STAGE_A1: "StageA1",
-  STAGE_A2: "StageA2",
-  STAGE_B1: "StageB1",
-  STAGE_B2: "StageB2",
-  STAGE_C1: "StageC1",
-  STAGE_C2: "StageC2",
-  STAGE_D1: "StageD1",
-  STAGE_D2: "StageD2",
-}
-
 function fmtMSS(s){return(s-(s%=60))/60+(9<s?':':':0')+s}
-
 
 const TimeoutOverlay = ({ time }) => {
   return (
@@ -48,36 +36,45 @@ export const ExamComp = () => {
   
   // TIMEOUT SECTION
   const [showTimeout, setShowTimeout] = useState(false);
-  const [seconds, setSeconds] = useState(5);
+  const [seconds, setSeconds] = useState(300);
   const [timeleft, setTimeleft] = useState("5:00");
+  const [twentyMinTimer, setTwentyMinTimer] = useState(null);
 
-  // const TIMEOUT_MS = 1200000;  // 20min
-  const TIMEOUT_MS = 10000;
+  const TIMEOUT_MS = 1200000;  // 20min
 
-  // 20min timer
-  useEffect(() => {
+  const startTwentyMinTimer = () => {
     const interval = setInterval(() => {
       console.log('timeout');
       setShowTimeout(true);
-      setSeconds(5);
-    }, TIMEOUT_MS);
+      setSeconds(300);
+    }, TIMEOUT_MS)
+    setTwentyMinTimer(interval);
+  }
 
-    // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-    return () => clearInterval(interval);
+  const stopTwentyMinTimer = () => {
+    clearInterval(twentyMinTimer);
+    setTwentyMinTimer(null);
+  }
+
+  // 20min timer
+  useEffect(() => {
+    startTwentyMinTimer();  // start timer...
   }, [])
 
-  // 5min timer for pause/break overlay
+  // // 5min timer for pause/break overlay
   useEffect(() => {
-    setShowTimeout(showTimeout);
-    console.log('second', seconds, showTimeout);
-    
     if (seconds > 0 && showTimeout) {
+      // stop timer
+      if (twentyMinTimer) stopTwentyMinTimer();
       setTimeout(() => {
         setSeconds(seconds - 1);
         setTimeleft(fmtMSS(seconds - 1));
       }, 1000);
     } else {
       setShowTimeout(false);
+      if (twentyMinTimer === null) {
+        startTwentyMinTimer();
+      }
     }
   })
 
@@ -208,8 +205,7 @@ export const ExamComp = () => {
       <hr />
         <label className="exam-intro__hint"><i>Klik op de blauwe tegels met ▶ om de clips af te spelen.</i></label>
         <CompleteExamComp />
-        { showTimeout === true ? <TimeoutOverlay time={timeleft}/> : <h2>No</h2>}
-        {/* <TimeoutOverlay time={timeleft} /> */}
+        { showTimeout === true ? <TimeoutOverlay time={timeleft}/> : null}
     </div>
   )
 }
