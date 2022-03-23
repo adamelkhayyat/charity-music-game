@@ -35,7 +35,7 @@ export const LandingPageComp = () => {
             return true;
           },
         },
-        signInSuccessUrl: `${window.location.origin}/charity-music-game/#/exam/instructions`,
+        signInSuccessUrl: `${window.location.origin}/charity-music-game/#/exam/example`,
         signInOptions: [
           // Leave the lines as is for the providers you want to offer your users.
           firebase.auth.EmailAuthProvider.PROVIDER_ID,
@@ -46,7 +46,7 @@ export const LandingPageComp = () => {
       // The start method will wait until the DOM is loaded.
       ui.start('#firebaseui-auth-container-student', uiConfig);
       } else {
-        navigation("/exam/instructions");
+        navigation("/exam/example");
       }
     });
   }, [])
