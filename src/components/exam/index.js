@@ -178,7 +178,7 @@ export const ExamComp = () => {
     return (
       <>
         { question.type === "question" ?  <QuestionComp config={question} /> : <ListeningComp config={question} /> }
-        { answered ? <button className="exam-intro__start-button" onClick={() => nextExercise()}>Doorgaan →</button> : null }
+        { answered ? <button className="exam-intro__start-button exam-control-btn" onClick={() => nextExercise()}>Doorgaan →</button> : null }
       </>
     );
   }

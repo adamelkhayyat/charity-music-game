@@ -15,16 +15,17 @@
 }
 
 .exam-intro__start-button {
-  width: 200px;
+  bottom: 0;
+  width: fit-content;
   color: #fff;
-  background-color: #1abc9c;
+  background-color: orange;
   padding: 13px 20px;
-  font-size: 22px;
+  font-size: 30px;
   line-height: 1.227;
   border-radius: 6px;
   cursor: pointer;
   border: transparent;
-  margin-left: auto;
+  margin: 0 1rem 1rem auto;
 }
 
 .exam-intro__start-button:hover {
@@ -85,7 +86,7 @@
   padding: 3px 5px 3px 5px;
   border-radius: 6px;
   color: white;
-  background-color: orange;
+  background-color: grey;
 }
 
 .time-out {
@@ -105,4 +106,8 @@
   padding: 10px;
   border-radius: 6px;
   text-align: center;
+}
+
+.exam-control-btn {
+  float: right;
 }

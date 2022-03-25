@@ -27,9 +27,6 @@ export const LandingPageComp = () => {
       var uiConfig = {
         callbacks: {
           signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-            // User successfully signed in.
-            // Return type determines whether we Doorgaan the redirect automatically
-            // or whether we leave that to developer to handle.
             localStorage.setItem("user-token", authResult.user.multiFactor.user.accessToken);
             localStorage.setItem("user-email", authResult.user.multiFactor.user.email);
             return true;

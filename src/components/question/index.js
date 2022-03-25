@@ -25,11 +25,19 @@ export const QuestionComp = ({config, hasButtons = true, hasTitle = true}) => {
     endTimer();
   }
 
+  const playAudio = (e) => {
+    e.preventDefault();
+    new Audio(`${process.env.PUBLIC_URL}/media/bell-sample.mp3`).play();
+  }
+
   return (
     <>
       {/* Question */}
       { hasTitle ? (
-        <p>Luister goed naar de audio fragmenten, zijn ze <b><u><i>hetzelfde</i></u></b> of <b><u><i>anders</i></u></b>?</p>
+        <div style={{display: "flex", flexDirection: "column", paddingBottom: "10px"}}>
+          <a href="#" onClick={(e) => playAudio(e)}>👂 Instructies horen</a>
+          <p style={{marginTop: "0"}}>Luister goed naar de audio fragmenten, zijn ze <b><u><i>hetzelfde</i></u></b> of <b><u><i>anders</i></u></b>?</p>
+        </div>
       ) : null }
 
       {/* Sound samples */}
@@ -40,7 +48,7 @@ export const QuestionComp = ({config, hasButtons = true, hasTitle = true}) => {
           style={{display: "none"}}>
         Your browser does not support the <code>audio</code> element.
       </audio>
-      <button id="audio-control" onClick={(e) => controlAudio(e, 1)}>Audio Afspelen 1 ▶</button>
+      <button id="audio-control" onClick={(e) => controlAudio(e, 1)}>▶</button>
 
       <audio
           id={`music-player-${id}-2`}
@@ -50,7 +58,7 @@ export const QuestionComp = ({config, hasButtons = true, hasTitle = true}) => {
           style={{display: "none"}}>
         Your browser does not support the <code>audio</code> element.
       </audio>
-      <button id="audio-control" onClick={(e) => controlAudio(e, 2)}>Audio Afspelen 2 ▶</button>
+      <button id="audio-control" onClick={(e) => controlAudio(e, 2)}>▶</button>
 
       {/* Answer options */}
       { hasButtons ? (

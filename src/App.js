@@ -9,6 +9,7 @@ import { AdminComp } from "./components/admin";
 import { LoginComp } from "./components/login";
 import { IntroductionComp } from "./components/exam/example";
 import { EndComp } from "./components/exam/end";
+import { ExamSelectionComp } from "./components/exam/examSelect";
 
 // styles
 import './App.css';
@@ -30,6 +31,7 @@ const App = () => {
         <Routes>
             <Route path="/" exact element={<LandingPageComp />} />
             <Route path="/exam/example" element={<IntroductionComp />} />
+            <Route path="/exam/select" element={<ExamSelectionComp />} />
             <Route path="/exam" element={<ExamComp />} />
             <Route path="/exam/end" element={<EndComp />} />
             <Route path="/admin" element={<AdminComp />} />
