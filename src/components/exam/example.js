@@ -42,9 +42,6 @@ const ExampleQuestions = () => {
 export const IntroductionComp = () => {
   const navigate = useNavigate();
 
-  const examId = localStorage.getItem("examId");
-  if (!examId) navigate('/exam/select');
-
   return (
     <div className="landing-page">
       <HeaderComp />

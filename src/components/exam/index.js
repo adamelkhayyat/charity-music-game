@@ -9,7 +9,7 @@ import { QuestionComp } from "../question";
 import { useNavigate } from "react-router-dom";
 
 // exam config
-import { examAConfig, examBConfig } from "../../examConfig"
+import { examConfig as examConfiguration } from "../../examConfig"
 
 // firebase
 import { saveResult } from "../../firebase"
@@ -87,23 +87,9 @@ export const ExamComp = () => {
 
   // start up, componentDidMount
   useEffect(() => {
-    // exam states
-    const examId = localStorage.getItem("examId");
-
-    switch (parseInt(examId)) {
-      case 1:
-        const stagesExam1 = Object.values(examAConfig).splice(1,4);
-        setExamConfig(stagesExam1);
-        setCurrentStageIndex(0);
-        break;
-      case 2:
-        const stagesExam2 = Object.values(examBConfig).splice(1,4);
-        setExamConfig(stagesExam2);
-        setCurrentStageIndex(0);
-        break;
-      default:
-        throw new Error("Unknown exam ID.");
-    }
+    const stagesExam2 = Object.values(examConfiguration).splice(1,4);
+    setExamConfig(stagesExam2);
+    setCurrentStageIndex(0);
 
     setStartTime(new Date().getTime());
   }, []);
@@ -134,11 +120,10 @@ export const ExamComp = () => {
         // end.
           const userEmail = localStorage.getItem('user-email');
           const username = userEmail.split("@")[0];
-          const examName = `exam${localStorage.getItem("examId")}`;
           const endTime = new Date().getTime();
           const timeTaken = `${Math.round((endTime - startTime) / 60000)} minutes`;
     
-          saveResult(examName, username, results.current, timeTaken);
+          saveResult('exam', username, results.current, timeTaken);
           navigate('/exam/end');
       }
     } else {

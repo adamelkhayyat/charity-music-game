@@ -157,8 +157,8 @@ const stageD ={
   stageDConfig: (onDone) => stageDConfig(onDone),
 }
 
-export const examAConfig = {
-  examName: "melodyExam",
+export const examConfig = {
+  examName: "exam",
   stageA,
   stageB,
   stageC,

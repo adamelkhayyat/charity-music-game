@@ -1,2 +1,1 @@
-export { examAConfig } from "./examA";
-export { examBConfig } from "./examB";
+export { examConfig } from "./exam";

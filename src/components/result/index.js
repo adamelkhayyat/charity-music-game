@@ -22,10 +22,13 @@ export const ResultComp = ({results}) => {
             ...result,
             exerciseNum: i + 1,
           }
+          console.log(result);
 
-          const time = result.soundCaught.map(sc =>sc.time);
-          setListeningTimes(arr => [...arr, ...time.flat(0)])
-          setListeningResults(arr => [...arr, adjustedResult]);
+          if (result.soundCaught) {
+            const time = result.soundCaught.map(sc =>sc.time);
+            setListeningTimes(arr => [...arr, ...time.flat(0)])
+            setListeningResults(arr => [...arr, adjustedResult]);
+          }
         }
       })
     }
