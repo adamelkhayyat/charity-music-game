@@ -79,16 +79,12 @@ export const ListeningComp = ({ config }) => {
     yourAudio.play();
   }
 
-  const playAudio = (e) => {
-    e.preventDefault();
-    new Audio(`${process.env.PUBLIC_URL}/media/bell-sample.mp3`).play();
-  }
-
   return (
     <div style={{display: "flex", flexDirection: "column"}}>
-      <a href="#" onClick={(e) => playAudio(e)}>👂 Instructies horen</a>
-      <p style={{marginTop: "0"}}>Luister goed naar het fragment, als je een <i><u><b>fout</b></u></i>. In de drums hoort in de muziek, druk dan zo snel mogelijk op de <i><u><b>spatiebalk</b></u></i>.</p>
+      { configuration.current.topTip && <label className="exam-intro__hint"><i>{configuration.current.topTip}</i></label> }
       <label className="exam-intro__hint"><i>Let op: je kan het fragment maar 1 keer afspelen!</i></label>
+      <p style={{marginTop: "0"}}>{configuration.current.message}</p>
+      { configuration.current.tip && <label className="exam-intro__hint"><i>{configuration.current.tip}</i></label> }
       <audio
           id={"music-player"}
           controls

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { HeaderComp } from "../header";
 import { ListeningComp } from "../listening"
 import { QuestionComp } from "../question";
+import { IntroductionComp } from "../exam/example";
 
 // navigation
 import { useNavigate } from "react-router-dom";
@@ -44,7 +45,6 @@ export const ExamComp = () => {
 
   const startTwentyMinTimer = () => {
     const interval = setInterval(() => {
-      console.log('timeout');
       setShowTimeout(true);
       setSeconds(300);
     }, TIMEOUT_MS)
@@ -87,8 +87,8 @@ export const ExamComp = () => {
 
   // start up, componentDidMount
   useEffect(() => {
-    const stagesExam2 = Object.values(examConfiguration).splice(1,4);
-    setExamConfig(stagesExam2);
+    const examConfig = Object.values(examConfiguration).splice(1,5);
+    setExamConfig(examConfig);
     setCurrentStageIndex(0);
 
     setStartTime(new Date().getTime());
@@ -135,19 +135,23 @@ export const ExamComp = () => {
   useEffect(() => {
     if(examConfig && currentStageIndex >= 0){
       switch (currentStageIndex) {
-        case 0: // A
+        case 0: // Tutorial
+          const stageTutorial = examConfig[currentStageIndex].stageTutorialConfig(addResults);
+          setStage(stageTutorial);
+          break;
+        case 1: // A
           const stage1 = examConfig[currentStageIndex].stageAConfig(addResults);
           setStage(stage1);
           break;
-          case 1: // B
+        case 2: // B
           const stage2 = examConfig[currentStageIndex].stageBConfig(addResults);
           setStage(stage2);
           break;
-        case 2: // C
+        case 3: // C
           const stage3 = examConfig[currentStageIndex].stageCConfig(addResults);
           setStage(stage3);
           break;
-        case 3: // D
+        case 4: // D
           const stage4 = examConfig[currentStageIndex].stageDConfig(addResults);
           setStage(stage4);
           break;
@@ -159,11 +163,14 @@ export const ExamComp = () => {
     }
   }, [currentStageIndex, examConfig]);
 
+  
   const CurrentExamQuestion = ({question}) => {
     return (
       <>
-        { question.type === "question" ?  <QuestionComp config={question} /> : <ListeningComp config={question} /> }
-        { answered ? <button className="exam-intro__start-button exam-control-btn" onClick={() => nextExercise()}>Doorgaan →</button> : null }
+        { question.type === "question" && <QuestionComp config={question} /> }
+        { question.type === "listening" && <ListeningComp config={question} /> }
+        { question.type === "tutorial" && <IntroductionComp config={question} /> }
+        { answered || question.type === "tutorial" ? <button className="exam-intro__start-button exam-control-btn" onClick={() => nextExercise()}>Doorgaan →</button> : null }
       </>
     );
   }
@@ -175,7 +182,7 @@ export const ExamComp = () => {
           stage ?
           (
               <>
-                <h2 id="exam-progress">{stage[currentQuestionIndex].stage}: Oefening {currentQuestionIndex + 1}</h2>
+                { stage[currentQuestionIndex].title && <h2 id="exam-progress">{stage[currentQuestionIndex].title}</h2> }
                 <CurrentExamQuestion question={stage[currentQuestionIndex]} />
               </>
           ) : null

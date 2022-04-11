@@ -7,7 +7,6 @@ import { LandingPageComp } from "./components/landingPage";
 import { ExamComp } from "./components/exam";
 import { AdminComp } from "./components/admin";
 import { LoginComp } from "./components/login";
-import { IntroductionComp } from "./components/exam/example";
 import { EndComp } from "./components/exam/end";
 
 // styles
@@ -18,7 +17,6 @@ const App = () => {
     <div className="App">
         <Routes>
             <Route path="/" exact element={<LandingPageComp />} />
-            <Route path="/exam/example" element={<IntroductionComp />} />
             <Route path="/exam" element={<ExamComp />} />
             <Route path="/exam/end" element={<EndComp />} />
             <Route path="/admin" element={<AdminComp />} />
