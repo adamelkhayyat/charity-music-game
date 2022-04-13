@@ -18,62 +18,10 @@ import { saveResult } from "../../firebase"
 import './Exam.css';
 
 
-const TimeoutOverlay = () => {
-  const [time, setTime] = useState(300);
-  
-  function fmtMSS(s){return(s-(s%=60))/60+(9<s?':':':0')+s}
-
-  setTimeout(() => {
-    if (time > 0) {
-      setTime(time - 1);
-    }
-  }, 1000);
-
-  return (
-    <div className="time-out">
-      <div className="time-out-msg">
-        <h1>Neem een pauze!</h1>
-        <p>Je kunt verder in <b>{fmtMSS(time)}</b></p>
-      </div>
-    </div>
-  )
-}
-
 export const ExamComp = () => {
   const navigate = useNavigate();
   
   let results = useRef([]);
-  
-  // TIMEOUT SECTION
-  const [showTimeout, setShowTimeout] = useState(false);
-  const [twentyMinTimer, setTwentyMinTimer] = useState(null);
-
-  const TIMEOUT_MS = 1200000;  // 20min
-  const BREAK_MS = 300000;  // 5min
-
-  const startTwentyMinTimer = () => {
-    const interval = setInterval(() => {
-      setShowTimeout(true);
-    }, TIMEOUT_MS)
-    setTwentyMinTimer(interval);
-  }
-
-  // 20min timer
-  useEffect(() => {
-    startTwentyMinTimer();  // start timer...
-  }, [])
-
-  // // 5min timer for pause/break overlay
-  useEffect(() => {
-    if (showTimeout) {
-      setTimeout(() => {
-        setShowTimeout(false);
-        if (twentyMinTimer === null) {
-          startTwentyMinTimer();
-        }
-      }, BREAK_MS);
-    }
-  })
 
   const [examConfig, setExamConfig] = useState();
   const [startTime, setStartTime] = useState();
@@ -209,7 +157,6 @@ export const ExamComp = () => {
       <hr />
         <label className="exam-intro__hint"><i>Klik op de blauwe tegels met ▶ om de clips af te spelen.</i></label>
         <CompleteExamComp />
-        { showTimeout && <TimeoutOverlay /> }
     </div>
   )
 }

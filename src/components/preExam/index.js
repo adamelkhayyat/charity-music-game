@@ -50,7 +50,7 @@ export const PreExamComp = () => {
       audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FMiss%20Duck%20-%20Pre%20test%20.mp3?alt=media&token=1c62a56d-d119-473b-89f0-620f39ff53a9",
       // audioSrc: "https://soundbible.com/mp3/alien-spaceship_daniel_simion.mp3",
       message: "In dit muziekstuk zitten een aantal van deze belletjes verstopt! Kan jij ze allemaal vinden? Als je er 1 hebt gehoord, druk dan zo snel mogelijk op de spatiebalk!",
-      topTip: "Tip:  het voorbeeld kun je zo vaak beluisteren als je zelf wil, probeer de bel in het voorbeeld te onthouden. Er zullen namelijk ook andere bellen inzitten, maar dit is niet de bel. Die. We zoeken. De uitdaging kun je maar 1 keer beluisteren!",
+      topTip: "Tip:  het voorbeeld kun je zo vaak beluisteren als je zelf wil, probeer de bel in het voorbeeld te onthouden. Er zullen namelijk ook andere belletjes verstopt zitten in het muziek stuk die lijken op de de bel die we zoeken. Maar let op, we zoeken alleen de bel in het voorbeeld. De uitdaging kun je maar 1 keer beluisteren!",
       bellInstances: [
         {
           time: 14,
@@ -81,7 +81,7 @@ export const PreExamComp = () => {
       audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FMiss%20Duck%20-%20Post%20test.mp3?alt=media&token=cf1dacd7-e9fa-41e2-ab41-fd0c84607f99",
       // audioSrc: "https://soundbible.com/mp3/alien-spaceship_daniel_simion.mp3",
       message: "In dit muziekstuk zitten een aantal van deze belletjes verstopt! Kan jij ze allemaal vinden? Als je er 1 hebt gehoord, druk dan zo snel mogelijk op de spatiebalk!",
-      topTip: "Tip:  het voorbeeld kun je zo vaak beluisteren als je zelf wil, probeer de bel in het voorbeeld te onthouden. Er zullen namelijk ook andere bellen inzitten, maar dit is niet de bel. Die. We zoeken. De uitdaging kun je maar 1 keer beluisteren!",
+      topTip: "Tip:  het voorbeeld kun je zo vaak beluisteren als je zelf wil, probeer de bel in het voorbeeld te onthouden. Er zullen namelijk ook andere belletjes verstopt zitten in het muziek stuk die lijken op de de bel die we zoeken. Maar let op, we zoeken alleen de bel in het voorbeeld. De uitdaging kun je maar 1 keer beluisteren!",
       bellInstances: [
         {
           time: 24,

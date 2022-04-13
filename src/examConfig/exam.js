@@ -166,7 +166,7 @@ const stageAConfig = (addResults) => {
   }
 
   const l1Config = {
-    stage: "StageA2",
+    stage: "Uitdaging 1: Melodie",
     type: "listening",
     title: "Uitdaging 1: Melodie",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A%20-%20melody%20exam.mp3?alt=media&token=1e256ec8-0904-4c2c-82f6-f84083a3a83d",
@@ -213,7 +213,7 @@ const stageAConfig = (addResults) => {
   }
 
   const l2Config = {
-    stage: "StageA2",
+    stage: "Uitdaging 1: Ritme",
     type: "listening",
     title: "Uitdaging 1: Ritme",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage_A1_040422_clean.mp3?alt=media&token=97971a22-1168-4fa7-9b43-107aa3d672ca",
@@ -276,7 +276,7 @@ const stageBConfig = (addResults) => {
   }
 
   const l1Config = {
-    stage: "StageA2",
+    stage: "Uitdaging 2: Melodie",
     type: "listening",
     title: "Uitdaging 2: Melodie",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20B%20-%20Melody%20exam.mp3?alt=media&token=2eeb87cd-0b1e-4f3f-933f-97c26fe43d87",
@@ -322,12 +322,11 @@ const stageBConfig = (addResults) => {
   }
 
   const l2Config = {
-    stage: "StageA2",
+    stage: "Uitdaging 2: Ritme",
     type: "listening",
     title: "Uitdaging 2: Ritme",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FB2%20-%20exam%20rhythm.mp3?alt=media&token=d05e36f8-d84e-4380-adae-b842e36af1f9",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
-    message: "Let op!! Je kan het fragment maar 1 keer afspelen!",
     topTip: "Let op! Je hoort maar 1 rondje drum, zonder pauze of tamboerijn. Hierna beginnen gelijk de fouten! Druk zo snel mogelijk op de spatiebalk als je een fout in de drums hoort!",
     bellInstances: [
       {
@@ -362,8 +361,7 @@ const stageCConfig = (addResults) => {
     mp3Url1: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FC1%20-%20Example%20v1.mp3?alt=media&token=939fdb09-6a05-4332-8ba1-08fb2cf449d9",
     mp3Url2: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FC1%20-%20Example%20wrong%20v1.mp3?alt=media&token=126f352b-e558-490b-88f5-87479e9432b0",
     correctAnswer: "different",
-    extraType: "melody",
-    tip: "Tip: Er komt nu weer een instrument bij"
+    extraType: "melody"
   };
 
   const t1Config = {
@@ -377,7 +375,7 @@ const stageCConfig = (addResults) => {
   }
 
   const l1Config = {
-    stage: "StageA2",
+    stage: "Uitdaging 3: Melodie",
     type: "listening",
     title: "Uitdaging 3: Melodie",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20C%20-%20melody%20exam.mp3?alt=media&token=5c74ad28-dd57-482a-83c9-012dce6b02ed",
@@ -426,12 +424,11 @@ const stageCConfig = (addResults) => {
   }
 
   const l2Config = {
-    stage: "StageA2",
+    stage: "Uitdaging 3: Ritme",
     type: "listening",
     title: "Uitdaging 3: Ritme",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FC2%20-%20exam%20rhythm.mp3?alt=media&token=3d98ddf1-1d66-465c-87f6-c90f1b90b5be",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
-    message: "Let op!! Je kan het fragment maar 1 keer afspelen!",
     topTip: "Let op! Je hoort maar 1 rondje drum, zonder pauze of tamboerijn. Hierna beginnen gelijk de fouten! Druk zo snel mogelijk op de spatiebalk als je een fout in de drums hoort!",
     bellInstances: [
       {
@@ -470,7 +467,6 @@ const stageDConfig = (addResults) => {
     mp3Url2: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FD1%20-%20wrong.mp3?alt=media&token=69ac0992-a685-4835-9b70-214e167e5d71",
     correctAnswer: "different",
     extraType: "melody",
-    tip: "Tip: Er komt nu weer een instrument bij"
   };
 
   const t1Config = {
@@ -484,7 +480,7 @@ const stageDConfig = (addResults) => {
   }
 
   const l1Config = {
-    stage: "StageA2",
+    stage: "Uitdaging 4: Melodie",
     type: "listening",
     title: "Uitdaging 4: Melodie",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20D%20-%20Melody%20exam.mp3?alt=media&token=80c7d36c-e8cd-4f45-9c03-7866ac3b8d61",
@@ -530,13 +526,13 @@ const stageDConfig = (addResults) => {
   }
 
   const l2Config = {
-    stage: "StageA2",
+    stage: "Uitdaging 4: Ritme",
     type: "listening",
     title: "Uitdaging 4: Ritme",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FD2%20-%20exam%20rhythm.mp3?alt=media&token=0c2762c2-9910-477e-a548-d80c6680044e",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
     message: "Let alleen op de drumpartij! In deze partij zitten fouten waar je op moet reageren. Negeer alle andere geluiden en fouten van de andere partij!",
-    topTip: "Let op:  je kan het fragment maar 1 keer afspelen! Je hoort maar 1 rondje drum, zonder pauze of tamboerijn. Hierna beginnen gelijk de fouten! Druk zo snel mogelijk op de spatiebalk als je een fout in de drums hoort!",
+    topTip: "Je hoort maar 1 rondje drum, zonder pauze of tamboerijn. Hierna beginnen gelijk de fouten! Druk zo snel mogelijk op de spatiebalk als je een fout in de drums hoort!",
     bellInstances: [
       {
         time: 20,
