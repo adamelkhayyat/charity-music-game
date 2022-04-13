@@ -367,6 +367,9 @@ const stageCConfig = (addResults) => {
   };
 
   const t1Config = {
+    messageTitle: "Er komt nu een instrument bij!",
+    messageTip: "Let op: dit kan je zo vaak afspelen als je zelf wil",
+    message: "Luister eerst naar de voorbeelden hieronder.",
     examples: [
       exampleQ1MConfig,
     ],
@@ -471,6 +474,9 @@ const stageDConfig = (addResults) => {
   };
 
   const t1Config = {
+    messageTitle: "Er komt nu een instrument bij!",
+    messageTip: "Let op: dit kan je zo vaak afspelen als je zelf wil",
+    message: "Luister eerst naar de voorbeelden hieronder.",
     examples: [
       exampleQ1MConfig,
     ],
@@ -484,7 +490,7 @@ const stageDConfig = (addResults) => {
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20D%20-%20Melody%20exam.mp3?alt=media&token=80c7d36c-e8cd-4f45-9c03-7866ac3b8d61",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
     message: "Luister ALLEEN naar de piano. Als je een fout hoort druk je zo snel mogelijk op de spatiebalk! Let op, in de drums zitten ook fouten, probeer die te negeren! Dus alleen op de spatiebalk drukken als de piano een fout maakt!!!",
-    topTip: "Tip: Als je de tamboerijn hoort dan is het voorbeeld klaar. Als je de piano opnieuw hoort dan is dat de uitdaging, daarin zitten fouten totdat je de tamboerijn opnieuw hoort!",
+    topTip: "Let op: Dit kan je maar 1 keer afspelen! Als je de tamboerijn hoort dan is het voorbeeld klaar. Als je de piano opnieuw hoort dan is dat de uitdaging, daarin zitten fouten totdat je de tamboerijn opnieuw hoort!",
     bellInstances: [
       {
         time: 28,
@@ -515,6 +521,8 @@ const stageDConfig = (addResults) => {
   };
 
   const t2Config = {
+    messageTitle: "Ben je klaar om er weer een nieuw een instrument aan toe te voegen?",
+    message: "Let alleen op de drums en negeer de andere partijen.",
     examples: [
       exampleQ1RConfig,
     ],
@@ -527,7 +535,8 @@ const stageDConfig = (addResults) => {
     title: "Uitdaging 4: Ritme",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FD2%20-%20exam%20rhythm.mp3?alt=media&token=0c2762c2-9910-477e-a548-d80c6680044e",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
-    message: "TODO",
+    message: "Let alleen op de drumpartij! In deze partij zitten fouten waar je op moet reageren. Negeer alle andere geluiden en fouten van de andere partij!",
+    topTip: "Let op:  je kan het fragment maar 1 keer afspelen! Je hoort maar 1 rondje drum, zonder pauze of tamboerijn. Hierna beginnen gelijk de fouten! Druk zo snel mogelijk op de spatiebalk als je een fout in de drums hoort!",
     bellInstances: [
       {
         time: 20,

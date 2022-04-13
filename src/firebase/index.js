@@ -12,7 +12,8 @@ const baseConfig = {
 };
 
 const devConfig = {
-  apiKey: "x",
+  // apiKey: "x",
+  apiKey: "AIzaSyBizpLHSXHJIYEuKbE4VLJM6eJ_tOOr9zA",
   ...baseConfig,
 }
 

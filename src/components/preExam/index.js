@@ -47,16 +47,28 @@ export const PreExamComp = () => {
       stage: "Pre-test",
       type: "listening",
       title: "Pre-test",
-      audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A%20-%20melody%20exam.mp3?alt=media&token=1e256ec8-0904-4c2c-82f6-f84083a3a83d",
+      audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FMiss%20Duck%20-%20Pre%20test%20.mp3?alt=media&token=1c62a56d-d119-473b-89f0-620f39ff53a9",
       // audioSrc: "https://soundbible.com/mp3/alien-spaceship_daniel_simion.mp3",
-      message: "Luister ALLEEN naar de piano. Als je een fout hoort druk je zo snel mogelijk op de spatiebalk! Let op, in de drums zitten ook fouten, probeer die te negeren! Dus alleen op de spatiebalk drukken als de piano een fout maakt!!!",
-      topTip: "Tip: Pre-exam!",
+      message: "In dit muziekstuk zitten een aantal van deze belletjes verstopt! Kan jij ze allemaal vinden? Als je er 1 hebt gehoord, druk dan zo snel mogelijk op de spatiebalk!",
+      topTip: "Tip:  het voorbeeld kun je zo vaak beluisteren als je zelf wil, probeer de bel in het voorbeeld te onthouden. Er zullen namelijk ook andere bellen inzitten, maar dit is niet de bel. Die. We zoeken. De uitdaging kun je maar 1 keer beluisteren!",
       bellInstances: [
         {
-          time: 5,
+          time: 14,
         },
         {
-          time: 10,
+          time: 43,
+        },
+        {
+          time: 63,
+        },
+        {
+          time: 99,
+        },
+        {
+          time: 139,
+        },
+        {
+          time: 151,
         },
       ],
       onDone: (soundCaught, config) => finishInitialExam({soundCaught, config}, "preExam"),
@@ -66,16 +78,28 @@ export const PreExamComp = () => {
       stage: "Post-test",
       type: "listening",
       title: "Post-test",
-      audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A%20-%20melody%20exam.mp3?alt=media&token=1e256ec8-0904-4c2c-82f6-f84083a3a83d",
+      audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FMiss%20Duck%20-%20Post%20test.mp3?alt=media&token=cf1dacd7-e9fa-41e2-ab41-fd0c84607f99",
       // audioSrc: "https://soundbible.com/mp3/alien-spaceship_daniel_simion.mp3",
-      message: "Luister ALLEEN naar de piano. Als je een fout hoort druk je zo snel mogelijk op de spatiebalk! Let op, in de drums zitten ook fouten, probeer die te negeren! Dus alleen op de spatiebalk drukken als de piano een fout maakt!!!",
-      topTip: "Tip: Post-exam!",
+      message: "In dit muziekstuk zitten een aantal van deze belletjes verstopt! Kan jij ze allemaal vinden? Als je er 1 hebt gehoord, druk dan zo snel mogelijk op de spatiebalk!",
+      topTip: "Tip:  het voorbeeld kun je zo vaak beluisteren als je zelf wil, probeer de bel in het voorbeeld te onthouden. Er zullen namelijk ook andere bellen inzitten, maar dit is niet de bel. Die. We zoeken. De uitdaging kun je maar 1 keer beluisteren!",
       bellInstances: [
         {
-          time: 5,
+          time: 24,
         },
         {
-          time: 10,
+          time: 42,
+        },
+        {
+          time: 69,
+        },
+        {
+          time: 119,
+        },
+        {
+          time: 128,
+        },
+        {
+          time: 158,
         },
       ],
       onDone: (soundCaught, config) => finishInitialExam({soundCaught, config}, "postExam"),
@@ -102,11 +126,34 @@ export const PreExamComp = () => {
     );
   }
 
+  const BellExampleComp = () => {
+    const controlAudio = (e) => {
+      e.preventDefault();
+      document.getElementById(`music-player-example-bell`).play();
+    }
+
+    return (
+      <div style={{display: "flex", flexDirection: "row"}}>
+        <audio
+        id={`music-player-example-bell`}
+        controls
+        src="https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FMiss%20Duck%20-%20sound%20example.mp3?alt=media&token=47a395b7-8890-42ef-b667-41261ac5adc2"
+        style={{display: "none"}}>
+          Your browser does not support the <code>audio</code> element.
+        </audio>
+        <p>Luister naar de bel in het voorbeeld hieronder:</p>
+        <button id="audio-control" style={{marginLeft: "5px", height: "30px", fontSize: "15px", padding: "0", width: "50px"}} onClick={(e) => controlAudio(e)}>▶</button>
+      </div>
+    );
+  }
+
+
   return (
     <div className="exam">
       <HeaderComp />
       <hr />
       { !showPreExam && <PreExamChoice /> }
+      { (showPreExam && question) && <BellExampleComp /> }
       { (showPreExam && question) && <PreExamQuestion question={question} /> }
     </div>
   )
