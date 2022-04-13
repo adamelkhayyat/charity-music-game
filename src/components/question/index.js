@@ -2,7 +2,6 @@
 import './Question.css';
 
 export const QuestionComp = ({config, hasButtons = true, hasTitle = true}) => {
-  console.log(config);
   const { mp3Url1, mp3Url2, correctAnswer, id = "", onDone} = config;
   let startTime = 0;
   let reactionTime = 0;

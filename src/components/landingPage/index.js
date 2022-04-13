@@ -43,7 +43,7 @@ export const LandingPageComp = () => {
       // The start method will wait until the DOM is loaded.
       ui.start('#firebaseui-auth-container-student', uiConfig);
       } else {
-        navigation("/exam");
+        navigation("/pre-exam");
       }
     });
   }, [])

@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 // Comps
 import { LandingPageComp } from "./components/landingPage";
 import { ExamComp } from "./components/exam";
+import { PreExamComp } from "./components/preExam";
 import { AdminComp } from "./components/admin";
 import { LoginComp } from "./components/login";
 import { EndComp } from "./components/exam/end";
@@ -17,6 +18,7 @@ const App = () => {
     <div className="App">
         <Routes>
             <Route path="/" exact element={<LandingPageComp />} />
+            <Route path="/pre-exam" element={<PreExamComp />} />
             <Route path="/exam" element={<ExamComp />} />
             <Route path="/exam/end" element={<EndComp />} />
             <Route path="/admin" element={<AdminComp />} />

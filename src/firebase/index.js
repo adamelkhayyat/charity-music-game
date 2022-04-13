@@ -12,7 +12,7 @@ const baseConfig = {
 };
 
 const devConfig = {
-  apiKey: "AIzaSyBMYKEH3vftzupoVg21wV5cGHkKdHS_yKs",
+  apiKey: "x",
   ...baseConfig,
 }
 
@@ -34,6 +34,16 @@ export const saveResult = (examId, name, results, timeTaken) => {
     results: results,
     submittedAt: new Date().toLocaleString().replace(',',''),
     timeTaken: timeTaken,
+    user: {
+      name,
+    }
+  });
+}
+
+export const savePreExam = (examId, name, results) => {
+  set(ref(database, `examResults/${examId}-${name}`), {
+    results: [results],
+    submittedAt: new Date().toLocaleString().replace(',',''),
     user: {
       name,
     }

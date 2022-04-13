@@ -129,9 +129,17 @@ const stageTutorialConfig = (addResults) => {
     onDone: (reactionTime, answerCorrect, config) => addResults({reactionTime, answerCorrect, config})
   };
 
-  return [t1Config, q1Config, q2Config, q3Config, q4Config, q5Config, q6Config, q7Config, q8Config];
-}
+  const m1Config = {
+    stage: "tutorial",
+    type: "message",
+    topContent: "Nu gaan we echt beginnen!",
+    mainContent: "We gaan naar verschillende stukken muziek luisteren. Hoe verder je komt, hoe vetter en leuker de muziek wordt! Je krijgt verschillende uitdagingen; je gaat	namelijk op zoek naar gekke fouten in de muziek. Soms klinkt een toon/noot heel raar en soms is de toon/noot er helemaal niet. Kan jij ze allemaal vinden?",
+    secondaryContent: "Je krijg overal eerst een voorbeeld te horen! Hierin kun je stiekem al luisteren hoe de muziek zal klinken. Daarna ga je door naar de echte uitdaging!",
+    bottomContent: "Heel veel succes!"
+  };
 
+  return [t1Config, q1Config, q2Config, q3Config, q4Config, q5Config, q6Config, q7Config, q8Config, m1Config];
+}
 
 const stageAConfig = (addResults) => {
   const exampleQ1MConfig = {

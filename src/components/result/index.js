@@ -22,7 +22,6 @@ export const ResultComp = ({results}) => {
             ...result,
             exerciseNum: i + 1,
           }
-          console.log(result);
 
           if (result.soundCaught) {
             const time = result.soundCaught.map(sc =>sc.time);

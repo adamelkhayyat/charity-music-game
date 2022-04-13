@@ -24,7 +24,7 @@ export const LoginComp = () => {
           return true;
         },
       },
-      signInSuccessUrl: `${window.location.origin}/charity-music-game/#/admin`,
+      signInSuccessUrl: `${window.location.origin}/charity-music-game/#/pre-exam`,
       signInOptions: [
         // Leave the lines as is for the providers you want to offer your users.
         firebase.auth.EmailAuthProvider.PROVIDER_ID,

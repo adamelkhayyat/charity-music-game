@@ -108,7 +108,6 @@ export const ExamComp = () => {
     setAnswered(true);
   }
 
-  // TODO: continnue here.
   const nextExercise = () => {
     const currentStage = stage;
     setAnswered(false);
@@ -163,6 +162,21 @@ export const ExamComp = () => {
     }
   }, [currentStageIndex, examConfig]);
 
+  const MessageComp = ({config}) => {
+    const { mainContent, secondaryContent, topContent, bottomContent } = config;
+
+      return (
+        <div className="landing-page">
+          <div className="exam-intro">
+            <h2>{topContent}</h2>
+            <p>{mainContent}</p>
+            <p>{secondaryContent}</p>
+            <h4>{bottomContent}</h4>
+          </div>
+        </div>
+      )
+  }
+
   
   const CurrentExamQuestion = ({question}) => {
     return (
@@ -170,7 +184,8 @@ export const ExamComp = () => {
         { question.type === "question" && <QuestionComp config={question} /> }
         { question.type === "listening" && <ListeningComp config={question} /> }
         { question.type === "tutorial" && <IntroductionComp config={question} /> }
-        { answered || question.type === "tutorial" ? <button className="exam-intro__start-button exam-control-btn" onClick={() => nextExercise()}>Doorgaan →</button> : null }
+        { question.type === "message" && <MessageComp config={question} /> }
+        { (answered || question.type === "tutorial" || question.type === "message") ? <button className="exam-intro__start-button exam-control-btn" onClick={() => nextExercise()}>Doorgaan →</button> : null }
       </>
     );
   }
