@@ -325,7 +325,7 @@ const stageBConfig = (addResults) => {
     stage: "Uitdaging 2: Ritme",
     type: "listening",
     title: "Uitdaging 2: Ritme",
-    audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FB2%20-%20exam%20rhythm.mp3?alt=media&token=d05e36f8-d84e-4380-adae-b842e36af1f9",
+    audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FA2%20-%20exam%20rhythm.mp3?alt=media&token=9a7d286d-072e-4ffd-af7f-894d4d5b0ccb",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
     topTip: "Let op! Je hoort maar 1 rondje drum, zonder pauze of tamboerijn. Hierna beginnen gelijk de fouten! Druk zo snel mogelijk op de spatiebalk als je een fout in de drums hoort!",
     bellInstances: [
