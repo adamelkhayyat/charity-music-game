@@ -17,14 +17,23 @@ import { saveResult } from "../../firebase"
 
 import './Exam.css';
 
-function fmtMSS(s){return(s-(s%=60))/60+(9<s?':':':0')+s}
 
-const TimeoutOverlay = ({ time }) => {
+const TimeoutOverlay = () => {
+  const [time, setTime] = useState(300);
+  
+  function fmtMSS(s){return(s-(s%=60))/60+(9<s?':':':0')+s}
+
+  setTimeout(() => {
+    if (time > 0) {
+      setTime(time - 1);
+    }
+  }, 1000);
+
   return (
     <div className="time-out">
       <div className="time-out-msg">
         <h1>Neem een pauze!</h1>
-        <p>Je kunt verder in <b>{time}</b></p>
+        <p>Je kunt verder in <b>{fmtMSS(time)}</b></p>
       </div>
     </div>
   )
@@ -37,23 +46,16 @@ export const ExamComp = () => {
   
   // TIMEOUT SECTION
   const [showTimeout, setShowTimeout] = useState(false);
-  const [seconds, setSeconds] = useState(300);
-  const [timeleft, setTimeleft] = useState("5:00");
   const [twentyMinTimer, setTwentyMinTimer] = useState(null);
 
   const TIMEOUT_MS = 1200000;  // 20min
+  const BREAK_MS = 300000;  // 5min
 
   const startTwentyMinTimer = () => {
     const interval = setInterval(() => {
       setShowTimeout(true);
-      setSeconds(300);
     }, TIMEOUT_MS)
     setTwentyMinTimer(interval);
-  }
-
-  const stopTwentyMinTimer = () => {
-    clearInterval(twentyMinTimer);
-    setTwentyMinTimer(null);
   }
 
   // 20min timer
@@ -63,18 +65,13 @@ export const ExamComp = () => {
 
   // // 5min timer for pause/break overlay
   useEffect(() => {
-    if (seconds > 0 && showTimeout) {
-      // stop timer
-      if (twentyMinTimer) stopTwentyMinTimer();
+    if (showTimeout) {
       setTimeout(() => {
-        setSeconds(seconds - 1);
-        setTimeleft(fmtMSS(seconds - 1));
-      }, 1000);
-    } else {
-      setShowTimeout(false);
-      if (twentyMinTimer === null) {
-        startTwentyMinTimer();
-      }
+        setShowTimeout(false);
+        if (twentyMinTimer === null) {
+          startTwentyMinTimer();
+        }
+      }, BREAK_MS);
     }
   })
 
@@ -212,7 +209,7 @@ export const ExamComp = () => {
       <hr />
         <label className="exam-intro__hint"><i>Klik op de blauwe tegels met ▶ om de clips af te spelen.</i></label>
         <CompleteExamComp />
-        { showTimeout === true ? <TimeoutOverlay time={timeleft}/> : null}
+        { showTimeout && <TimeoutOverlay /> }
     </div>
   )
 }
