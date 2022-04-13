@@ -110,7 +110,7 @@ export const ExamComp = () => {
     setAnswered(false);
 
     if (currentQuestionIndex >= currentStage.length - 1) {
-      if (currentStageIndex < 3) {
+      if (currentStageIndex < 4) {
         setCurrentStageIndex(currentStageIndex + 1);
       } else {
         // end.

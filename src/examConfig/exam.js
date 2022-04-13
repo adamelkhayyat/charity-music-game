@@ -152,17 +152,8 @@ const stageAConfig = (addResults) => {
     correctAnswer: "different",
     extraType: "melody",
     extraSoundText: "Klik hieronder voor het geluid van de tamboerijn:",
-    extraSound: "https://soundbible.com/mp3/alien-spaceship_daniel_simion.mp3"
+    extraSound: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FTamboerijn%20(1).mp3?alt=media&token=886746d0-a5e1-42fb-b06f-82d9516b634e"
   };
-
-  // const exampleQ2MConfig = {
-  //   id: uuid(),
-  //   type: "tutorial",
-  //   mp3Url1: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A1%20-%20Example%20v1%20(1).mp3?alt=media&token=9dc2ad05-b9c1-4670-a2e6-b7d6e6a1e2fb",
-  //   mp3Url2: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A1%20-%20Example%20v1%20(1).mp3?alt=media&token=9dc2ad05-b9c1-4670-a2e6-b7d6e6a1e2fb",
-  //   correctAnswer: "same",
-  //   extraType: "melody"
-  // };
 
   const t1Config = {
     messageTitle: "Luister naar de voorbeelden hieronder.",
@@ -177,7 +168,7 @@ const stageAConfig = (addResults) => {
   const l1Config = {
     stage: "StageA2",
     type: "listening",
-    title: "Voorbeeld 1: Melodie",
+    title: "Uitdaging 1: Melodie",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A%20-%20melody%20exam.mp3?alt=media&token=1e256ec8-0904-4c2c-82f6-f84083a3a83d",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
     message: "Luister ALLEEN naar de piano. Als je een fout hoort druk je zo snel mogelijk op de spatiebalk! Let op, in de drums zitten ook fouten, probeer die te negeren! Dus alleen op de spatiebalk drukken als de piano een fout maakt!!!",
@@ -212,6 +203,9 @@ const stageAConfig = (addResults) => {
   };
 
   const t2Config = {
+    messageTitle: "Goed gedaan! Nu gaan we aan de slag met ritme.",
+    messageTip: "Let op! Je hoort maar 1 rondje drum, zonder pauze of tamboerijn. Hierna beginnen gelijk de fouten! Succes!",
+    message: "Nu gaan we aan de slag met ritme. Je krijgt dezelfde opdracht maar nu moet je je focussen op de drumpartij. Luister hieronder naar het voorbeeld. Kan jij de fout vinden? In de uitdaging op de volgende pagina, hoor je dus een drumstel en een basgitaar. In beiden partijen zullen er fouten zitten. Focus je alleen op de drum!",
     examples: [
       exampleQ1RConfig,
     ],
@@ -221,10 +215,11 @@ const stageAConfig = (addResults) => {
   const l2Config = {
     stage: "StageA2",
     type: "listening",
-    title: "Voorbeeld 1: Ritme",
+    title: "Uitdaging 1: Ritme",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage_A1_040422_clean.mp3?alt=media&token=97971a22-1168-4fa7-9b43-107aa3d672ca",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
-    message: "TODO",
+    message: "Let alleen op de drumpartij! In deze partij zitten fouten waar je op moet reageren. Negeer alle andere geluiden en fouten van de andere partij!",
+    tip: "Let op: Je hoort maar 1 rondje drum, zonder pauze of tamboerijn. Hierna beginnen gelijk de fouten! Druk zo snel mogelijk op de spatiebalk als je een fout in de drums hoort!",
     bellInstances: [
       {
         time: 12,
@@ -271,6 +266,9 @@ const stageBConfig = (addResults) => {
   };
 
   const t1Config = {
+    messageTitle: "Er komt nu een instrument bij!",
+    messageTip: "Let op: dit kan je zo vaak afspelen als je zelf wil",
+    message: "Luister eerst naar de voorbeelden hieronder.",
     examples: [
       exampleQ1MConfig,
     ],
@@ -315,6 +313,8 @@ const stageBConfig = (addResults) => {
   };
 
   const t2Config = {
+    messageTitle: "Tijd voor een nieuw een instrument!",
+    message: "Let alleen op de drums en negeer de andere partijen.",
     examples: [
       exampleQ1RConfig,
     ],
@@ -324,10 +324,11 @@ const stageBConfig = (addResults) => {
   const l2Config = {
     stage: "StageA2",
     type: "listening",
-    title: "Voorbeeld 2: Ritme",
+    title: "Uitdaging 2: Ritme",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FB2%20-%20exam%20rhythm.mp3?alt=media&token=d05e36f8-d84e-4380-adae-b842e36af1f9",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
-    message: "TODO",
+    message: "Let op!! Je kan het fragment maar 1 keer afspelen!",
+    topTip: "Let op! Je hoort maar 1 rondje drum, zonder pauze of tamboerijn. Hierna beginnen gelijk de fouten! Druk zo snel mogelijk op de spatiebalk als je een fout in de drums hoort!",
     bellInstances: [
       {
         time: 13,
@@ -375,7 +376,7 @@ const stageCConfig = (addResults) => {
   const l1Config = {
     stage: "StageA2",
     type: "listening",
-    title: "Voorbeeld 3: Melodie",
+    title: "Uitdaging 3: Melodie",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20C%20-%20melody%20exam.mp3?alt=media&token=5c74ad28-dd57-482a-83c9-012dce6b02ed",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
     message: "Luister ALLEEN naar de piano. Als je een fout hoort druk je zo snel mogelijk op de spatiebalk! Let op, in de drums zitten ook fouten, probeer die te negeren! Dus alleen op de spatiebalk drukken als de piano een fout maakt!!!",
@@ -413,6 +414,8 @@ const stageCConfig = (addResults) => {
   };
 
   const t2Config = {
+    messageTitle: "Tijd voor een nieuw een instrument!",
+    message: "Let alleen op de drums en negeer de andere partijen.",
     examples: [
       exampleQ1RConfig,
     ],
@@ -422,10 +425,11 @@ const stageCConfig = (addResults) => {
   const l2Config = {
     stage: "StageA2",
     type: "listening",
-    title: "Voorbeeld 3: Ritme",
+    title: "Uitdaging 3: Ritme",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FC2%20-%20exam%20rhythm.mp3?alt=media&token=3d98ddf1-1d66-465c-87f6-c90f1b90b5be",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
-    message: "TODO",
+    message: "Let op!! Je kan het fragment maar 1 keer afspelen!",
+    topTip: "Let op! Je hoort maar 1 rondje drum, zonder pauze of tamboerijn. Hierna beginnen gelijk de fouten! Druk zo snel mogelijk op de spatiebalk als je een fout in de drums hoort!",
     bellInstances: [
       {
         time: 23,
@@ -476,7 +480,7 @@ const stageDConfig = (addResults) => {
   const l1Config = {
     stage: "StageA2",
     type: "listening",
-    title: "Voorbeeld 4: Melodie",
+    title: "Uitdaging 4: Melodie",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20D%20-%20Melody%20exam.mp3?alt=media&token=80c7d36c-e8cd-4f45-9c03-7866ac3b8d61",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
     message: "Luister ALLEEN naar de piano. Als je een fout hoort druk je zo snel mogelijk op de spatiebalk! Let op, in de drums zitten ook fouten, probeer die te negeren! Dus alleen op de spatiebalk drukken als de piano een fout maakt!!!",
@@ -520,7 +524,7 @@ const stageDConfig = (addResults) => {
   const l2Config = {
     stage: "StageA2",
     type: "listening",
-    title: "Voorbeeld 4: Ritme",
+    title: "Uitdaging 4: Ritme",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FD2%20-%20exam%20rhythm.mp3?alt=media&token=0c2762c2-9910-477e-a548-d80c6680044e",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
     message: "TODO",

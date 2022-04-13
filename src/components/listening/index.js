@@ -83,8 +83,8 @@ export const ListeningComp = ({ config }) => {
     <div style={{display: "flex", flexDirection: "column"}}>
       { configuration.current.topTip && <label className="exam-intro__hint"><i>{configuration.current.topTip}</i></label> }
       <label className="exam-intro__hint"><i>Let op: je kan het fragment maar 1 keer afspelen!</i></label>
-      <p style={{marginTop: "0"}}>{configuration.current.message}</p>
       { configuration.current.tip && <label className="exam-intro__hint"><i>{configuration.current.tip}</i></label> }
+      <p style={{marginTop: "0"}}>{configuration.current.message}</p>
       <audio
           id={"music-player"}
           controls
