@@ -23,12 +23,38 @@ const ExampleQuestions = ({ config }) => {
   })
 
 
+  const controlAudio = (e) => {
+    e.preventDefault();
+    document.getElementById(`music-player-example-sound`).play();
+  }
+
+  const ExtraSoundComp = ({ mp3Url }) => {
+    return (
+      <>
+        <audio
+        id={`music-player-example-sound`}
+        controls
+        src={mp3Url}
+        style={{display: "none"}}>
+          Your browser does not support the <code>audio</code> element.
+        </audio>
+        <button id="audio-control" style={{marginLeft: "5px", height: "30px", fontSize: "15px", padding: "0", width: "50px"}} onClick={(e) => controlAudio(e)}>▶</button>
+      </>
+    );
+  }
+
   const MelodyQuestions = () => (
     <>
       <h2>Voorbeeld: Melodie</h2>
       {  melodyExamples.map((example) =>
         <>
         { example.tip && <label className="exam-intro__hint"><i>{example.tip}</i></label> }
+        { example.extraSound &&  (
+          <div style={{display: "flex", flexDirection: "row", flexFlow: "row"}}>
+            <p>{example.extraSoundText}</p>
+            <ExtraSoundComp mp3Url={example.extraSound}/>
+          </div>
+         ) }
         <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
             <QuestionComp config={example} hasButtons={false} hasTitle={false} />
             <label>Deze twee audioclips zijn <i><u>{ example.correctAnswer === "different" ? "verschillend" : "hetzelfde" }</u></i>.</label>
@@ -62,7 +88,9 @@ export const IntroductionComp = ({ config }) => {
   return (
     <div className="landing-page">
       <div className="exam-intro">
-        <p style={{marginBottom: "0"}}>We gaan eerst even oefenen!</p>
+        { config.messageTitle && <h3>{config.messageTitle}</h3> }
+        { config.message && <p>{config.message}</p> }
+        { config.messageTip && <label className="exam-intro__hint"><i>{config.messageTip}</i></label> }
         <p style={{color: "red"}}><b>De onderstaande audioclips zijn voorbeelden!</b></p>
         <ExampleQuestions config={config} />
       </div>

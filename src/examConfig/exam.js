@@ -6,7 +6,7 @@ const stageTutorialConfig = (addResults) => {
     type: "tutorial",
     mp3Url1: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FAnswer%202.mp3?alt=media&token=586754a9-f782-45fd-90de-8115e939ce95",
     mp3Url2: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FExample%202.mp3?alt=media&token=72ee139a-ffdd-4102-a56f-435984778236",
-    correctAnswer: "same",
+    correctAnswer: "different",
     extraType: "melody"
   };
 
@@ -15,7 +15,7 @@ const stageTutorialConfig = (addResults) => {
     type: "tutorial",
     mp3Url1: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FAnswer%201%20.mp3?alt=media&token=24de14c5-2bb6-4bf6-91e5-1b5ccfe7e562",
     mp3Url2: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FExample%201%20.mp3?alt=media&token=ce578207-8422-4d21-b065-ad1efe6704ad",
-    correctAnswer: "different",
+    correctAnswer: "same",
     extraType: "melody"
   };
 
@@ -24,7 +24,7 @@ const stageTutorialConfig = (addResults) => {
     type: "tutorial",
     mp3Url1: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FExample%202%20(1).mp3?alt=media&token=1fddf66b-dff5-43ba-8a90-cec2b7ce21f8",
     mp3Url2: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FAnswer%202%20(1).mp3?alt=media&token=0f2ca3ac-43b9-4f2c-a1ce-87e951d59317",
-    correctAnswer: "same",
+    correctAnswer: "different",
     extraType: "rythm"
   };
 
@@ -33,11 +33,13 @@ const stageTutorialConfig = (addResults) => {
     type: "tutorial",
     mp3Url1: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FAnswer%204.mp3?alt=media&token=86bb20d5-e96d-4017-8c8e-6da3fd76bca5",
     mp3Url2: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FExample%204.mp3?alt=media&token=ac29db5e-629e-4787-ac5f-7b1c3ca83c12",
-    correctAnswer: "different",
+    correctAnswer: "same",
     extraType: "rythm"
   };
 
   const t1Config = {
+    messageTitle: "Welkom! Wat fijn dat je er bent!",
+    message: "Heb jij zin in een uitdaging? We gaan straks naar leuke muziek luisteren waar fouten in verstopt zitten. Kan jij ze allemaal vinden? We gaan eerst even oefenen, druk op de blauwe knoppen hier beneden om het voorbeeld te horen!",
     examples: [
       exampleQ1MConfig,
       exampleQ2MConfig,
@@ -123,8 +125,8 @@ const stageTutorialConfig = (addResults) => {
     title: "Testronde: Ritme 4",
     stage: "tutorial",
     type: "question",
-    mp3Url1: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FAnswer%2014.mp3?alt=media&token=d69d6bb9-0886-4331-b0c6-9d951db556b5",
-    mp3Url2: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FExample%2014.mp3?alt=media&token=0d5d9056-981b-43d4-bda3-383c4b2dfff7",
+    mp3Url1: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FExample%2014.mp3?alt=media&token=0d5d9056-981b-43d4-bda3-383c4b2dfff7",
+    mp3Url2: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FAnswer%2014.mp3?alt=media&token=d69d6bb9-0886-4331-b0c6-9d951db556b5",
     correctAnswer: "different",
     onDone: (reactionTime, answerCorrect, config) => addResults({reactionTime, answerCorrect, config})
   };
@@ -148,22 +150,26 @@ const stageAConfig = (addResults) => {
     mp3Url1: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A1%20-%20Example%20v1%20(1).mp3?alt=media&token=9dc2ad05-b9c1-4670-a2e6-b7d6e6a1e2fb",
     mp3Url2: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A1%20-%20Example%20wrong%20v1.mp3?alt=media&token=cb4632e4-1374-4376-a009-16e2e899df84",
     correctAnswer: "different",
-    extraType: "melody"
+    extraType: "melody",
+    extraSoundText: "Klik hieronder voor het geluid van de tamboerijn:",
+    extraSound: "https://soundbible.com/mp3/alien-spaceship_daniel_simion.mp3"
   };
 
-  const exampleQ2MConfig = {
-    id: uuid(),
-    type: "tutorial",
-    mp3Url1: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A1%20-%20Example%20v1%20(1).mp3?alt=media&token=9dc2ad05-b9c1-4670-a2e6-b7d6e6a1e2fb",
-    mp3Url2: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A1%20-%20Example%20v1%20(1).mp3?alt=media&token=9dc2ad05-b9c1-4670-a2e6-b7d6e6a1e2fb",
-    correctAnswer: "same",
-    extraType: "melody"
-  };
+  // const exampleQ2MConfig = {
+  //   id: uuid(),
+  //   type: "tutorial",
+  //   mp3Url1: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A1%20-%20Example%20v1%20(1).mp3?alt=media&token=9dc2ad05-b9c1-4670-a2e6-b7d6e6a1e2fb",
+  //   mp3Url2: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A1%20-%20Example%20v1%20(1).mp3?alt=media&token=9dc2ad05-b9c1-4670-a2e6-b7d6e6a1e2fb",
+  //   correctAnswer: "same",
+  //   extraType: "melody"
+  // };
 
   const t1Config = {
+    messageTitle: "Luister naar de voorbeelden hieronder.",
+    messageTip: "Dit kan je zo vaak afspelen als je zelf wil!",
+    message: "Op de volgende pagina ga je luisteren naar een stuk muziek. Hierin moet je goed opletten op het piano geluid, de piano gaat namelijk fouten maken, ze lijken een beetje op de voorbeelden hieronder. Je hoort in uitdaging 1 eerst een stukje met een voorbeeld van een piano. Als je de tamboerijn hoort dan is het voorbeeld klaar. Als je de piano opnieuw hoort dan is dat de uitdaging, daarin zitten fouten totdat je de tamboerijn opnieuw hoort!",
     examples: [
       exampleQ1MConfig,
-      exampleQ2MConfig,
     ],
     type: "tutorial"
   }
@@ -171,7 +177,7 @@ const stageAConfig = (addResults) => {
   const l1Config = {
     stage: "StageA2",
     type: "listening",
-    title: "Uitdaging 1: Melodie",
+    title: "Voorbeeld 1: Melodie",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage%20A%20-%20melody%20exam.mp3?alt=media&token=1e256ec8-0904-4c2c-82f6-f84083a3a83d",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
     message: "Luister ALLEEN naar de piano. Als je een fout hoort druk je zo snel mogelijk op de spatiebalk! Let op, in de drums zitten ook fouten, probeer die te negeren! Dus alleen op de spatiebalk drukken als de piano een fout maakt!!!",
@@ -215,7 +221,7 @@ const stageAConfig = (addResults) => {
   const l2Config = {
     stage: "StageA2",
     type: "listening",
-    title: "Uitdaging 1: Ritme",
+    title: "Voorbeeld 1: Ritme",
     audioSrc: "https://firebasestorage.googleapis.com/v0/b/toon-twist-project.appspot.com/o/audio%2FStage_A1_040422_clean.mp3?alt=media&token=97971a22-1168-4fa7-9b43-107aa3d672ca",
     // audioSrc: "https://soundbible.com/mp3/Fart-Common-Everyday-Fart_Mike-Koenig.mp3",
     message: "TODO",
