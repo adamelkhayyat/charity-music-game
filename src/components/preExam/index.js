@@ -16,6 +16,7 @@ export const PreExamComp = () => {
   const [answered, setAnswered] = useState(false);
   const [showPreExam, setShowPreExam] = useState(false);
   const [question, setQuestion] = useState(null);
+  const [stage, setStage] = useState(null);
 
   const finishInitialExam = (result, examName) => {
     console.log(result);
@@ -30,7 +31,9 @@ export const PreExamComp = () => {
   }
   
   const continueToExam = () => {
-    navigate('/exam');
+    if (stage === 0) {
+      navigate('/exam');
+    }
   }
   
   const PreExamQuestion = ({question}) => {
@@ -107,8 +110,10 @@ export const PreExamComp = () => {
 
     if (examNum === 0) {  // pre-exam
       setQuestion(preExam);
+      setStage(0);
     } else if (examNum === 1) { // post-exam
       setQuestion(postExam);
+      setStage(1);
     }
 
     setShowPreExam(true);
